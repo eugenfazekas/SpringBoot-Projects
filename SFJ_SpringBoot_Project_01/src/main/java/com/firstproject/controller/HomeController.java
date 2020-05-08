@@ -1,10 +1,10 @@
 package com.firstproject.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.firstproject.domain.Story;
+import com.firstproject.repository.StoryRepository;
 
 @Controller
 public class HomeController {
+	
+	@Autowired
+	StoryRepository storyRepo;
 	
 	@RequestMapping("/")
 	public String index(Model model){
@@ -37,8 +41,8 @@ public class HomeController {
 		return "exceptionHandler";
 	}
 	
-	private ArrayList<Story> getStories () {
-		ArrayList<Story> stories = new ArrayList<Story>();
+	private List<Story> getStories () {
+	List<Story> stories = storyRepo.findAll();
 		
 //		Story story1 = new Story();
 //		story1.setTitle("Elso Sztorim");
@@ -58,8 +62,4 @@ public class HomeController {
 		return stories;
 	}
 
-	
-	
-	
-	
 }
