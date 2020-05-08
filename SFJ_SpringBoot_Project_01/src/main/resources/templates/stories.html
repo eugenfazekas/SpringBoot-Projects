@@ -36,7 +36,7 @@
                 <a class="navbar-brand" href="#">napiSFJ.com</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-5">
-                <p class="navbar-text navbar-right" >IP címed: <a href="#" class="navbar-link">127.0.0.1</a></p>
+                <p class="navbar-text navbar-right" th:text="#{yourip}">IP címed: <a href="#" class="navbar-link">127.0.0.1</a></p>
             </div>
         </div>
     </nav>
@@ -63,7 +63,7 @@
     </article>
 
     <footer>
-        <p>Készült az San Franciscoból Jöttem csapata megbízásából</p>
+        <p th:text="#{footerText}">Készült az San Franciscoból Jöttem csapata megbízásából</p>
     </footer>
 
 </div>
