@@ -2,27 +2,39 @@ package com.firstproject.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity
+@Entity(name="Stories")
 public class Story {
 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	private Long id;
+	
+    @Column(name = "Cim")
 	private String title;
+	
+	@Column(columnDefinition = "TEXT")//@Column(length=1000)
 	private String content;
 	private Date posted;
 	
 	@ManyToOne
 	private Blogger blogger;
 	
-	private Story() {
+	public Story() {
 
+	}
+
+	public Story(String title, String content, Date posted, Blogger blogger) {
+		this.title = title;
+		this.content = content;
+		this.posted = posted;
+		this.blogger = blogger;
 	}
 
 	public Long getId() {
@@ -69,7 +81,5 @@ public class Story {
 	public String toString() {
 		return "Story [title=" + title + "]";
 	}
-	
-	
-	
+
 }

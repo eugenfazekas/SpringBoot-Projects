@@ -10,4 +10,8 @@ public interface StoryRepository extends CrudRepository<Story, Long> {
 
 	List<Story> findAll();
 	
+	Story findFirstByOrderByPostedDesc();
+
+	Story findByTitle(String title);;
+	
 }

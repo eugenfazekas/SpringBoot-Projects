@@ -1,7 +1,5 @@
 package com.firstproject.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,28 +9,38 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.firstproject.domain.Story;
-import com.firstproject.repository.StoryRepository;
+import com.firstproject.service.StoryService;
 
 @Controller
 public class HomeController {
 	
+	 private StoryService storyService;
+
 	@Autowired
-	StoryRepository storyRepo;
-	
+	public void setStoryservice(StoryService storyservice) {
+		this.storyService = storyservice;
+	} 
+
 	@RequestMapping("/")
-	public String index(Model model){
+	public String stories(Model model){
 		model.addAttribute("pageTitle", "Minden napra egy SFJ sztori");
-		model.addAttribute("stories", getStories());
+		model.addAttribute("stories", storyService.getStories());
 		return "stories";
 	}
 	
-	@RequestMapping("/user/{id}")
-	public String searchForUser(@PathVariable(value="id") String id) throws Exception {
-		if(id == null)
-			throw new Exception("Nincs ilyen ID-val felhaszlonk");
-		
-		return "user";
+	@RequestMapping("/story")
+	public String story(Model model){
+		model.addAttribute("pageTitle", "Minden napra egy SFJ sztori");
+		model.addAttribute("story", storyService.getStory());
+		return "story";
+	}
+	
+	@RequestMapping("/title/{title}")
+	public String searchForUser(@PathVariable(value="title") String title , Model model) throws Exception {
+		if(title == null)
+			throw new Exception("Nincs ilyen cimmel Sztorink");
+	model.addAttribute("story", storyService.getSpecificStory(title));
+		return "story";
 	}
 	
 	@ExceptionHandler(Exception.class)
@@ -41,9 +49,9 @@ public class HomeController {
 		return "exceptionHandler";
 	}
 	
-	private List<Story> getStories () {
-	List<Story> stories = storyRepo.findAll();
-		
+//	private List<Story> getStories () {
+//	List<Story> stories = storyRepo.findAll();
+//		
 //		Story story1 = new Story();
 //		story1.setTitle("Elso Sztorim");
 //		story1.setContent("<p>Na ez az adat mar eles adat.</p>");
@@ -58,8 +66,7 @@ public class HomeController {
 //		
 //		stories.add(story1);
 //		stories.add(story2);
-		
-		return stories;
-	}
+//		return stories;
+//	}
 
 }

@@ -20,10 +20,15 @@ public class Blogger {
 	@OneToMany(mappedBy = "blogger")
 	private List<Story> stories;
 	
-	private Blogger() {
+	public Blogger() {
 		 
 	 }
-	 
+
+	public Blogger(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+
 	public Long getId() {
 		return id;
 	}
