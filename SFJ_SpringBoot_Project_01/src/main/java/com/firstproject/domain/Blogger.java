@@ -11,14 +11,14 @@ import javax.persistence.OneToMany;
 @Entity
 public class Blogger {
 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	private Long id;
 	private String name;
 	private int age;
 	
 	@OneToMany(mappedBy = "blogger")
-	private List<Story> stories;
+	public List<Story> stories;
 	
 	public Blogger() {
 		 
