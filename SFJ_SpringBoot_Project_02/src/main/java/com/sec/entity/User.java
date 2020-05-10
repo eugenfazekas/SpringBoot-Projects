@@ -2,26 +2,25 @@ package com.sec.entity;
 
 public class User {
 
-	private String fullName;
+	private String email;
 	private String password;
 	
 	public User() {
 
 	}
 
-
-	public User(String fullName, String password) {
+	public User(String email, String password) {
 	
-		this.fullName = fullName;
+		this.email = email;
 		this.password = password;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -31,6 +30,9 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+	
 
 	
 	
