@@ -30,6 +30,10 @@ public class User {
 	
 	private String fullName;
 	
+	public User() {
+	
+	}
+	
 	@ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER )
 	@JoinTable( 
 		name = "users_roles", 
@@ -37,6 +41,8 @@ public class User {
 		inverseJoinColumns = {@JoinColumn(name="role_id")}  
 	)
 	private Set<Role> roles = new HashSet<Role>();
+
+	
 
 	public Long getId() {
 		return id;
@@ -78,5 +84,9 @@ public class User {
 		this.roles = roles;
 	}
 	
-	
+	public void addRoles(String roleName) {
+		if(this.roles == null || this.roles.isEmpty())
+			this.roles = new HashSet<>();
+		this.roles.add(new Role(roleName));
+	}
 }
