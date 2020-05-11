@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 public class SecurityConf extends WebSecurityConfigurerAdapter {
 	
-
 	@Bean
 	public UserDetailsService userDetailsService() {
 	    return super.userDetailsService();
@@ -31,9 +30,12 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				
+				.antMatchers("/stories").hasRole("USER")
+				.antMatchers("/index").hasRole("USER")
+				.antMatchers("/bloggers").hasRole("USER")
 				.antMatchers("/admin/**").hasRole("ADMIN")
 				.antMatchers("/registration").permitAll()
+				.antMatchers("/activation/**").permitAll()
 				.antMatchers("/reg").permitAll()
 				.anyRequest().authenticated()
 				.and()

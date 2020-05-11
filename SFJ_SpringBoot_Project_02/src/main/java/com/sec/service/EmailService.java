@@ -17,26 +17,29 @@ public class EmailService {
 	
 	@Value("${spring.mail.username}")
 	private String MESSAGE_FROM;
+	
+	@Value("${EmailService.validation}")   
+	private String EmailValidation ;
 
 	@Autowired
 	public void setJavaMailSender(JavaMailSender javaMailSender) {
 		this.javaMailSender = javaMailSender;
 	}
 	
-	public void sendMessage (String email) {
+	public void sendMessage (String email,String fullname, String Key) {
 		SimpleMailMessage message = null;
 		try {
 			message = new SimpleMailMessage();
 			message.setFrom(MESSAGE_FROM);
 			message.setTo(email);
-			message.setSubject("Sikeres Regisztralas");
-			message.setText("Kedves "+ email + "! \n \n Koszonjuk h regisztraltal");
+			message.setSubject("Succesfull Registration");
+			message.setText("Dear " +fullname + " \nThank you for you're registering \n \n "+
+			 "You can activate you're account by clicking on the link below \n \n"+
+			 EmailValidation + Key);
 			javaMailSender.send(message);
 			log.debug("Sikeres email kuldes");
 		}catch(Exception e) {
-			log.error("Hiba e-mail kuldesekor a kovetkezo cimre: " +email);
+			log.error("Hiba e-mail kuldesekor a kovetkezo cimre: " +fullname);
 		}
-		
 	}
-	
 }

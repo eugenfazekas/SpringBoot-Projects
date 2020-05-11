@@ -30,6 +30,10 @@ public class User {
 	
 	private String fullName;
 	
+	private String activation;
+	
+	private Boolean enabled;
+	
 	public User() {
 	
 	}
@@ -41,8 +45,6 @@ public class User {
 		inverseJoinColumns = {@JoinColumn(name="role_id")}  
 	)
 	private Set<Role> roles = new HashSet<Role>();
-
-	
 
 	public Long getId() {
 		return id;
@@ -83,7 +85,23 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	
+	 
+	public String getActivation() {
+		return activation;
+	}
+
+	public void setActivation(String activation) {
+		this.activation = activation;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public void addRoles(String roleName) {
 		if(this.roles == null || this.roles.isEmpty())
 			this.roles = new HashSet<>();

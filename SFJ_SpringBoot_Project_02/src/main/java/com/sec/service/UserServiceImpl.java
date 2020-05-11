@@ -1,5 +1,7 @@
 package com.sec.service;
 
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +40,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 	}
-	
-	
-
+		
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		  User user = findByEmail(username);
@@ -56,16 +56,48 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 	
 	@Override
-	public void registerUser(User user) {
+	public String registerUser(User userToRegister) {
+		User userCheck = userRepository.findByEmail(userToRegister.getEmail());
+		
+		if(userCheck != null)
+			return "alreadyExists";
+		
 		Role userRole = roleRepository.findByRole(USER_ROLE);
 		if(userRole != null) {
-			user.getRoles().add(userRole);
+			userToRegister.getRoles().add(userRole);
 		} else {
-			user.addRoles(USER_ROLE);
+			userToRegister.addRoles(USER_ROLE);
 		}
-		userRepository.save(user);
-		//emailService.sendMessage(user.getEmail());
 		
+		//emailService.sendMessage(user.getEmail());
+		userToRegister.setEnabled(false);
+		userToRegister.setActivation(generateKey());
+		userRepository.save(userToRegister);
+		emailService.sendMessage(userToRegister.getEmail(),userToRegister.getFullName(),userToRegister.getActivation());
+		
+		return "ok";
+	}
+
+	public String generateKey() {
+		Random random =  new Random();
+		char[] word = new char[16];
+		for(int j = 0; j < word.length; j++) {
+			word[j] = (char) ('a' + random.nextInt(26));
+		}
+		String key = new String(word);
+		log.debug("Random Key: "+ key);
+		return key;
+	}
+
+	@Override
+	public String userActivation(String code) {
+		User user  = userRepository.findByActivation(code);
+		if(user == null)
+			return "No Result";
+		user.setEnabled(true);
+		user.setActivation("");
+		userRepository.save(user);
+		return "ok";
 	}
 
 }
