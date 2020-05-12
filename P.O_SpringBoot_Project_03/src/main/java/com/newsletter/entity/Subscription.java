@@ -1,9 +1,18 @@
 package com.newsletter.entity;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class Subscription {
 
+	@NotBlank
+	@Size(min =3 , max =30)
 	private String fullNAme;
 	
+
+	@NotBlank
+	@Email
 	private String emailAddress;
 
 	public Subscription() {

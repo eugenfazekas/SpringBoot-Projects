@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.newsletter.entity.Subscription;
 import com.newsletter.repository.SubscriptionRepository;
@@ -21,6 +22,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	@Override
 	public void register(Subscription subscription) throws SubscriptionAlreadyExistsException {
 	log.info("SubscriptionImpl registers "+ subscription);
+	Assert.notNull(subscription,"Subscription must be not null ");
 
 	try {
 	subscriptionRepository.save(subscription);
