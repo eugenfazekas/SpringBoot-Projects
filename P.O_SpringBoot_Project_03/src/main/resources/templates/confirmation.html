@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xmlns:th="http://www.thymeleaf.org">
+ 
+ <head>
+ 	<meta charset="UTF-8"/>
+ 	<title>NewsLetter Subscription</title>
+ 	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+ </head>
+ 
+<body>
+
+	<div class="content">
+	
+	<h1>Dear Client,</h1>
+	<h2>Thank you for subscription!</h2>
+	It is a pleasure to have you in our <span th:text="${numberOfNewLetterSubscriptions}"></span> newsletetter subscribers!
+	<h3>Please see our highlights</h3>
+	<ul th:each="newsletter : ${newsletterHighLights}">
+		<li th:text="${newsletter.subject}"/> 
+		<li th:text="${newsletter.content}"/> 
+	</ul>
+
+	</div>
+
+</body>
+</html>
