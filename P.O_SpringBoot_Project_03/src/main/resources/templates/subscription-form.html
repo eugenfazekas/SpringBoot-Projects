@@ -5,12 +5,12 @@
  <head>
  	<meta charset="UTF-8"/>
  	<title th:text="#{subscription-form.title}">NewsLetter Subscription</title>
- 	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="../static/css/style.css" />
  </head>
  
 <body>
 	
-	<form method="post" action="subscribe">
+	<form method="post" th:action="@{/subscribe}" action="/subscribe">
 	
 	<h1 th:text="#{subscription-form.heading1}">Sign up for our newsletter</h1>
 	<h2 th:text="#{subscription-form.heading2}">get instant updates on hot products and special deals</h2>
@@ -24,6 +24,6 @@
 	<button type="submit" th:text="#{subscription-form.submit}">Submit Registration</button>
 	
 	</form>
-
+	<a th:href="@{/thank-you }">ConfirmationTest</a>
 </body>
 </html>
