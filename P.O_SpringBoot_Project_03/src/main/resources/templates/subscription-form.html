@@ -10,17 +10,22 @@
  
 <body>
 	
-	<form method="post" th:action="@{/subscribe}" action="/subscribe">
+	<form method="post" th:action="@{/subscribe}" action="/subscribe" th:object="${subscriptionForm}">
 	
 	<h1 th:text="#{subscription-form.heading1}">Sign up for our newsletter</h1>
+	
 	<h2 th:text="#{subscription-form.heading2}">get instant updates on hot products and special deals</h2>
 	
 	<label th:text="#{subscription-form.fullName}">Your name:</label>
-	<input type="text" name="fullName" />
+	<div class="fieldErrorMessage" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Form error</div>
+	<input type="text"  th:field="*{fullName}"  />
+	
 	
 	<label th:text="#{subscription-form.email}">Email address:</label>
-	<input type="email" name="emailAddress" />
+	<div class="fieldErrorMessage" th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}">Form error</div>
+	<input type="email" th:field="*{emailAddress}" />
 	
+	<div class="formErrorMessage" th:if="${#fields.hasErrors('global')}" th:errors="*{global}">Form error</div>
 	<button type="submit" th:text="#{subscription-form.submit}">Submit Registration</button>
 	
 	</form>

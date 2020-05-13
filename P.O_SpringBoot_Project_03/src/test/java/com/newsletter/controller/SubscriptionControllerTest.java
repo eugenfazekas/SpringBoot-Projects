@@ -62,7 +62,7 @@ public class SubscriptionControllerTest {
 	}
 
 	private void then_theFormContains(final Subscription subscription) throws Exception {
-		result.andExpect(xpath("//input[@name='" +FORM_FIELD_FULL_NAME+ "']/@value").string(subscription.getFullNAme()))
+		result.andExpect(xpath("//input[@name='" +FORM_FIELD_FULL_NAME+ "']/@value").string(subscription.getFullName()))
 			  .andExpect(xpath("//input[@name='" +FORM_FIELD_EMAIL_ADDRESS + "']/@value").string(subscription.getEmailAddress()));
 	}
 	
@@ -72,7 +72,7 @@ public class SubscriptionControllerTest {
 				post(PATH_SUBSCRIPTION_FORM)
 				.accept(MediaType.TEXT_HTML)
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
-				.param(FORM_FIELD_FULL_NAME, subscriptionformInput.getFullNAme())
+				.param(FORM_FIELD_FULL_NAME, subscriptionformInput.getFullName())
 				.param(FORM_FIELD_EMAIL_ADDRESS, subscriptionformInput.getEmailAddress()));
 	}
 	private void then_theUserIsRedirectedToTheConfirmationPage() throws Exception {

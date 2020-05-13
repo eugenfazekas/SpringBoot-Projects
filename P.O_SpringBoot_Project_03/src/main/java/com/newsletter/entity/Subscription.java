@@ -8,7 +8,7 @@ public class Subscription {
 
 	@NotBlank
 	@Size(min =3 , max =30)
-	private String fullNAme;
+	private String fullName;
 	
 
 	@NotBlank
@@ -20,16 +20,16 @@ public class Subscription {
 	}
 
 	public Subscription(String fullNAme, String emailAddress) {
-		this.fullNAme = fullNAme;
+		this.fullName = fullNAme;
 		this.emailAddress = emailAddress;
 	}
 
-	public String getFullNAme() {
-		return fullNAme;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setFullNAme(String fullNAme) {
-		this.fullNAme = fullNAme;
+	public void setFullName(String fullNAme) {
+		this.fullName = fullNAme;
 	}
 
 	public String getEmailAddress() {
@@ -42,7 +42,7 @@ public class Subscription {
 
 	@Override
 	public String toString() {
-		return "Subscription [fullNAme=" + fullNAme + ", emailAddress=" + emailAddress + "]";
+		return "Subscription [fullNAme=" + fullName + ", emailAddress=" + emailAddress + "]";
 	}
 	
 	

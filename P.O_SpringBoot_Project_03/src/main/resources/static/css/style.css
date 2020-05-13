@@ -26,10 +26,17 @@ form input{
 	display:block;
 }
 
+.fieldErrorMessage{
+	color:red;
+}
+
 .content{
 	width:50%;
 	margin:20px auto 20px auto;
 	padding:20px 40px;
 	border: 26px #EEEEEE solid;
 	border-radius:20px;
+}
+.formErrorMessage{
+	color:red;
 }
