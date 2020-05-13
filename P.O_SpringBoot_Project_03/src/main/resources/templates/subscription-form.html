@@ -4,7 +4,7 @@
  
  <head>
  	<meta charset="UTF-8"/>
- 	<title>NewsLetter Subscription</title>
+ 	<title th:text="#{subscription-form.title}">NewsLetter Subscription</title>
  	<link rel="stylesheet" type="text/css" href="/css/style.css" />
  </head>
  
@@ -12,16 +12,16 @@
 	
 	<form method="post" action="subscribe">
 	
-	<h1>Sign up for our newsletter</h1>
-	<h2>get instant updates on hot products and special deals</h2>
+	<h1 th:text="#{subscription-form.heading1}">Sign up for our newsletter</h1>
+	<h2 th:text="#{subscription-form.heading2}">get instant updates on hot products and special deals</h2>
 	
-	<label>Your name:</label>
+	<label th:text="#{subscription-form.fullName}">Your name:</label>
 	<input type="text" name="fullName" />
 	
-	<label>Email address:</label>
+	<label th:text="#{subscription-form.email}">Email address:</label>
 	<input type="email" name="emailAddress" />
 	
-	<button type="submit">Submit Registration</button>
+	<button type="submit" th:text="#{subscription-form.submit}">Submit Registration</button>
 	
 	</form>
 

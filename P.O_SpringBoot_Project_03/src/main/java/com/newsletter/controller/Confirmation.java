@@ -22,6 +22,7 @@ public class Confirmation {
 	public String confirmation(Model model) {
 		model.addAttribute("numberOfNewLetterSubscriptions", numebrOfNewsletterSubscriptions);
 		model.addAttribute("newsletterHighLights", newsLetterRepository.getRecentNewsLetters());
+		model.addAttribute("orderProcessingStatus","status.shipped");
 		return "confirmation";
 	}
 	
