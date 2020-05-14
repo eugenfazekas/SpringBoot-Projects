@@ -9,6 +9,7 @@ import com.newsletter.entity.Subscription;
 import com.newsletter.service.exception.SubscriptionAlreadyExistsException;
 
 @Validated
+@FunctionalInterface
 public interface SubscriptionService {
  
 	 void register(@NotNull @Valid Subscription subscription) throws SubscriptionAlreadyExistsException;
