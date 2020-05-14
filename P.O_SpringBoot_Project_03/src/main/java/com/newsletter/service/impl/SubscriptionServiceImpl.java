@@ -1,5 +1,7 @@
 package com.newsletter.service.impl;
 
+import javax.validation.constraints.Min;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +37,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 				"Subscription already exists with email: "+
 		subscription.getEmailAddress());
 		}
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public @Min(0) long getNumberofSubscriptions() {
+		
+		return subscriptionRepository.count();
 	}
 }

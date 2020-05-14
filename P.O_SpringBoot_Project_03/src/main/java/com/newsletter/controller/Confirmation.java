@@ -7,20 +7,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.newsletter.repository.NewsletterRepository;
+import com.newsletter.service.SubscriptionService;
 
 @Controller
 public class Confirmation {
 	
-
-	@Value("${subscription.numebrOfNewsletterSubscriptions}")
-	private long numebrOfNewsletterSubscriptions;
+	@Autowired
+	private SubscriptionService subscriptionService;
 	
 	@Autowired
 	private NewsletterRepository newsLetterRepository;
 	
 	@GetMapping("/thank-you")
 	public String confirmation(Model model) {
-		model.addAttribute("numberOfNewLetterSubscriptions", numebrOfNewsletterSubscriptions);
+		model.addAttribute("numberOfNewLetterSubscriptions", subscriptionService.getNumberofSubscriptions());
 		model.addAttribute("newsletterHighLights", newsLetterRepository.getRecentNewsLetters());
 		model.addAttribute("orderProcessingStatus","status.shipped");
 		return "confirmation";

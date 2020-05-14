@@ -2,6 +2,8 @@ package com.newsletter.repository.impl;
 
 import java.util.UUID;
 
+import javax.validation.constraints.Min;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,12 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
 		final String id = UUID.randomUUID().toString();
 		
 		jdbcTemplate.update(sql,id,subscription.getFullName(),subscription.getEmailAddress());
+	}
+
+	@Override
+	public @Min(0) long count() {
+		
+		return jdbcTemplate.queryForObject("SELECT COUNT(1) FROM subscriptions", Long.class);
 	}
 
 }
