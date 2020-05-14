@@ -160,4 +160,11 @@ public class SubscriptionControllerTest {
 		then_subscriptionIsSentToTheService(duplicateSubscription);
 		then_theUserSeesThatTheEmailAddressIsAlreadyRegistered();
 	}
+	@Test 
+	    public void testSubscriptionFormWithLeadingAndTrailingTrimmed() throws Exception {
+		given_theUserIsOnTheSubscriptionPage();
+		when_userSubmitSubscriptionFormContaining(new Subscription ("   Diana   ","    di@mail.com   "));
+		then_subscriptionIsSentToTheService(new Subscription ("Diana","di@mail.com"));
+		then_theUserIsRedirectedToTheConfirmationPage();
+	}
 }

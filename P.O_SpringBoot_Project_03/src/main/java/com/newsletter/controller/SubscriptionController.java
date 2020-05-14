@@ -50,7 +50,7 @@ public class SubscriptionController {
 					return SUBSCRIPTION_FORM;
 			} else {
 				subscriptionService.register(subscription);
-				return "redirect:thank-you";
+				return "redirect:/thank-you";
 			}
 		
 		} 
