@@ -1,0 +1,7 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/newsletter
+        platform: mysql
+        username: root
+        password: m48vd5Q
+        initialization-mode: always

@@ -1,9 +1,4 @@
-communications:
-   recentNewsLetters:  
-  
-    -
-      subject: Extreme Price cut YML
-      content: 20-30-40%
-    -  
-      subject: New Store in London
-      content: LondonShop YML
+spring:
+    datasource: 
+        platform: h2
+       

@@ -13,7 +13,6 @@ public interface SubscriptionRepository {
 
 	void save(@NotNull @Valid Subscription subscription);
 	
-	
 	@Min(0)
 	long count();
 }

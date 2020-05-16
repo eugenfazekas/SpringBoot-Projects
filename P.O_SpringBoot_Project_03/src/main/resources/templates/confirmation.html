@@ -14,13 +14,16 @@
 	
 	<h1 th:text="#{confirmation.heading1}">Dear Client,</h1>
 	<h2 th:text="#{confirmation.heading2}">Thank you for subscription!</h2>
+	
+	<section th;tag="remove" th:unless="${#lists.isEmpty(newsletterHighLights)}">
 	<span th:text="#{confirmation.span(${numberOfNewLetterSubscriptions})}"></span>
 	<h3 th:text="#{confirmation.heading3}">Please see our highlights</h3>
 	<ul th:each="newsletter : ${newsletterHighLights}">
 		<li th:text="${newsletter.subject}"/> 
 		<li th:text="${newsletter.content}"/> 
 	</ul>
-	<span th:text="#{${orderProcessingStatus}}"></span>
+	</section>
+	<span th:text="#{${orderProcessingStatus}}">  </span>
 	</div>
 
 </body>
