@@ -46,7 +46,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	                .loginPage("/login")
 	                .and()
 	                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-	                .logoutSuccessUrl("/login");
+	                .logoutSuccessUrl("/login")
+	                .and()
+	                .rememberMe().tokenValiditySeconds(2592001).key("mySecret!");
 	    }
 	  	   
 	 @Bean
