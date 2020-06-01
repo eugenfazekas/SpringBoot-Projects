@@ -44,11 +44,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	                .formLogin()
 	                .loginProcessingUrl("/login")
 	                .loginPage("/login")
+	                .usernameParameter("changedusernameparameter")
+	                .passwordParameter("changedpasswordparameter")
 	                .and()
 	                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 	                .logoutSuccessUrl("/login")
 	                .and()
-	                .rememberMe().tokenValiditySeconds(2592001).key("mySecret!");
+	                .rememberMe().tokenValiditySeconds(2592001).key("mySecret!").rememberMeParameter("changedremembermeparameter");
 	    }
 	  	   
 	 @Bean
