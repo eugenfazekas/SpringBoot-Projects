@@ -1,5 +1,6 @@
 package com.security.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,20 +11,20 @@ import com.security.model.User;
 
 @Service
 public class UserPrincipalDetailsService implements UserDetailsService {
+   
+	private UserRepository userRepository;
 
-	private UserRepository userReposiyotry;
+	@Autowired
+    public UserPrincipalDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-	public UserPrincipalDetailsService(UserRepository userReposiyotry) {
-		this.userReposiyotry = userReposiyotry;
-	}
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
-		User user = userReposiyotry.findByUsername(username);
-		UserPrincipal userPrincipal = new UserPrincipal(user);
-		
-		return userPrincipal ;
-	}
-
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+       	User user = this.userRepository.findByUsername(s);
+        UserPrincipal userPrincipal = new UserPrincipal(user);
+        
+        return userPrincipal;
+    }
 }

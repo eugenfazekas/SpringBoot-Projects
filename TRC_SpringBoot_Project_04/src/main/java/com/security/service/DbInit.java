@@ -3,7 +3,9 @@ package com.security.service;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,28 +16,22 @@ import com.security.model.User;
 public class DbInit implements CommandLineRunner {
 
 	private UserRepository userRepository;
-	private PasswordEncoder passwordEncoder;
-
 	
-
-	public DbInit(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+	@Autowired
+	public DbInit(UserRepository userRepository ) {
 		this.userRepository = userRepository;
-		this.passwordEncoder = passwordEncoder;
+	
 	}
-
-
 
 	@Override
 	public void run(String... args) throws Exception {
 		
-		User eugen = new User("Eugen",passwordEncoder.encode("pass"),"USER", "");
-		User admin = new User("Admin",passwordEncoder.encode("pass"),"ADMIN", "ACCESS_TEST1,ACCESS_TEST2");
-		User manager = new User("Manager",passwordEncoder.encode("pass"),"MANAGER", "ACCESS_TEST1");
+		User eugen = new User("Eugen",new BCryptPasswordEncoder().encode("pass"),"USER", "");
+		User admin = new User("Admin",new BCryptPasswordEncoder().encode("pass"),"ADMIN", "ACCESS_TEST1,ACCESS_TEST2");
+		User manager = new User("Manager",new BCryptPasswordEncoder().encode("pass"),"MANAGER", "ACCESS_TEST1");
 		
 		List<User> users = Arrays.asList(eugen,admin,manager);
 		
 		userRepository.saveAll(users);
-		
 	}
-
 }

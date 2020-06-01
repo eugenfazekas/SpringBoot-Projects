@@ -41,13 +41,13 @@ public class UserPrincipal implements UserDetails {
 	@Override
 	public String getPassword() {
 		
-		return user.getPassword();
+		return this.user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
 		
-		return user.getUsername();
+		return this.user.getUsername();
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class UserPrincipal implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 
-		return user.getActive() == 1;
+		return this.user.getActive() == 1;
 	}
 
 }
