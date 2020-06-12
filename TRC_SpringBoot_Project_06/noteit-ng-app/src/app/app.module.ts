@@ -7,7 +7,10 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NotesComponent } from './notes/notes.component';
-import { Router, Routes, RouterModule} from "@angular/router";
+import { Router, Routes, RouterModule} from '@angular/router';
+import { FormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 const appRoutes: Routes = [
 {
@@ -39,7 +42,9 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes,{enableTracing: true}),
     AppRoutingModule
   ],
   providers: [],
