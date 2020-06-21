@@ -1,4 +1,4 @@
-package com.sql.Repository.Impl;
+package com.sql.repository.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,8 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.sql.Repository.RendelesfejRepository;
 import com.sql.model.Rendelesfej;
+import com.sql.repository.RendelesfejRepository;
 
 @Repository
 public class RendelesfejRepositoryImpl implements RendelesfejRepository{

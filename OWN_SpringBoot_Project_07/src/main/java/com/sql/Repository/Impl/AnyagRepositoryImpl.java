@@ -1,15 +1,16 @@
-package com.sql.Repository.Impl;
+package com.sql.repository.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.sql.Repository.AnyagRepository;
 import com.sql.model.Anyag;
+import com.sql.repository.AnyagRepository;
 
 @Repository
 public class AnyagRepositoryImpl implements AnyagRepository {
@@ -31,5 +32,29 @@ public class AnyagRepositoryImpl implements AnyagRepository {
 			return n;
 		}
 	};
+
+	@Override
+	public List<Anyag> findMaterialBetweenCode(String code1, String code2) {
+		
+		String sql = "SELECT * FROM anyag WHERE ? <= azonosito AND azonosito <= ? ";
+		
+		return jdbcTemplate.query(sql,mapper,code1,code2);
+	}
+	
+	@Override
+	public List<Anyag> findMaterialByUnit(String unit) {
+		
+		String sql = "SELECT * FROM anyag WHERE mert_egys = ? ";
+		
+		return jdbcTemplate.query(sql,mapper,unit);
+	}
+	
+	@Override
+	public List<Anyag> findMaterialByUnitsCmOrM(String unit1, String unit2) {
+		
+		String sql = "SELECT * FROM anyag WHERE mert_egys = ? OR mert_egys = ? ";
+		
+		return jdbcTemplate.query(sql,mapper,unit1,unit2);
+	}
 	
 }

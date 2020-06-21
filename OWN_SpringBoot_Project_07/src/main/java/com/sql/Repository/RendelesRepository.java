@@ -1,4 +1,4 @@
-package com.sql.Repository;
+package com.sql.repository;
 
 public interface RendelesRepository {
 
