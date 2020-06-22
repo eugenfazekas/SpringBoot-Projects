@@ -32,7 +32,7 @@ public class AnyagAPIController {
 	}
 	
 	@GetMapping(path = "/unit/{unit}")
-	public List<Anyag> findMaterialByUnits(@PathVariable("unit") String unit,HttpServletResponse response) {
+	public List<Anyag> findMaterialByUnit(@PathVariable("unit") String unit,HttpServletResponse response) {
 		
 		return anyagService.findMaterialByUnit(unit);
 	}

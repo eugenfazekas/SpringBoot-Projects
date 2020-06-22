@@ -52,7 +52,7 @@ public class AnyagRepositoryImpl implements AnyagRepository {
 	@Override
 	public List<Anyag> findMaterialByUnitsCmOrM(String unit1, String unit2) {
 		
-		String sql = "SELECT * FROM anyag WHERE mert_egys = ? OR mert_egys = ? ";
+		String sql = "SELECT * FROM anyag WHERE mert_egys IN (?,?) ";
 		
 		return jdbcTemplate.query(sql,mapper,unit1,unit2);
 	}

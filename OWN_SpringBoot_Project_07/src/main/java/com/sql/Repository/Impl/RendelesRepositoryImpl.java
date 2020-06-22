@@ -2,6 +2,9 @@ package com.sql.repository.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,5 +34,26 @@ public class RendelesRepositoryImpl implements RendelesRepository {
 			return n;
 		}
 	};
+
+	@Override
+	public List<Rendeles> findOrderByCharByDate(char character, String date1, String date2) {
+	
+	List<Rendeles> search = null;
+	String sql = "  SELECT * FROM rendeles WHERE ( datum = ?  OR datum = ?  ) AND Left(kod,1) = ? ";
+
+	try {
+	  search = jdbcTemplate.query(sql, mapper,date1,date2,character);
+	}catch (Exception e)   {System.out.println(e);}
+	
+	return search;
+	}
+
+	@Override
+	public List<Rendeles> findProductsUntilDeadline(String datedealine) {
+
+		Date date = new Date();
+		String sql = "SELECT * FROM rendeles where kesz = false AND datum BETWEEN ? AND ? ";
+		return jdbcTemplate.query(sql, mapper,date,datedealine);
+	}
 	
 }

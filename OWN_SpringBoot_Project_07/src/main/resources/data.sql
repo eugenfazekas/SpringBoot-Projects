@@ -28,7 +28,7 @@ INSERT INTO TERMEK (kod,nev,ar) VALUES ('BC1','Bketto',1.00	);
 INSERT INTO TERMEK (kod,nev,ar) VALUES ('BX9','Bketto_1',2.00);
 INSERT INTO TERMEK (kod,nev,ar) VALUES ('NN1','enen1',3.00	);
 
-INSERT INTO RENDELES (rend_szam,kod,darab,datum,kesz) VALUES ('Aa-1111','AA2',2,'2018-5-10',TRUE);
+INSERT INTO RENDELES (rend_szam,kod,darab,datum,kesz) VALUES ('Aa-1111','AA2',2,'2028-05-10',FALSE);
 INSERT INTO RENDELES (rend_szam,kod,darab,datum,kesz) VALUES ('Aa-1111','AA6',3,'2018-5-09',FALSE);
 INSERT INTO RENDELES (rend_szam,kod,darab,datum,kesz) VALUES ('Aa-1111','BC1',2,'2018-5-14',TRUE);
 INSERT INTO RENDELES (rend_szam,kod,darab,datum,kesz) VALUES ('Aa-1111','BX9',5,'2018-5-10',TRUE);
