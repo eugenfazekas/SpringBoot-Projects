@@ -17,16 +17,16 @@ INSERT INTO RENDELESFEJ (rend_szam,partner_kod,rend_datum) VALUES ('Xy-9999','11
 INSERT INTO RENDELESFEJ (rend_szam,partner_kod,rend_datum) VALUES ('Xz-9999','113','2017-9-01');
 INSERT INTO RENDELESFEJ (rend_szam,partner_kod,rend_datum) VALUES ('Zz-9999','113','2017-9-01');
 
-INSERT INTO TERMEK (kod,nev,ar) VALUES ('AA1','Aelso',12.00	);
-INSERT INTO TERMEK (kod,nev,ar) VALUES ('AA2','Amásod',12.00);
-INSERT INTO TERMEK (kod,nev,ar) VALUES ('AA3','Aharmad',20.00);
-INSERT INTO TERMEK (kod,nev,ar) VALUES ('AA6','Ahat',10.00	);
-INSERT INTO TERMEK (kod,nev,ar) VALUES ('BB2','Bmásodik',24.00);
-INSERT INTO TERMEK (kod,nev,ar) VALUES ('BB3','Bhárom',110.00);
-INSERT INTO TERMEK (kod,nev,ar) VALUES ('BB4','Bnégy',110.00);
-INSERT INTO TERMEK (kod,nev,ar) VALUES ('BC1','Bketto',1.00	);
-INSERT INTO TERMEK (kod,nev,ar) VALUES ('BX9','Bketto_1',2.00);
-INSERT INTO TERMEK (kod,nev,ar) VALUES ('NN1','enen1',3.00	);
+INSERT INTO TERMEK (kod,nev,ar) VALUES ('AA1','Halaszbot',12.00	);
+INSERT INTO TERMEK (kod,nev,ar) VALUES ('AA2','Gyertyatarto',12.00);
+INSERT INTO TERMEK (kod,nev,ar) VALUES ('AA3','Ungyujto',20.00);
+INSERT INTO TERMEK (kod,nev,ar) VALUES ('AA6','Golyostol',10.00	);
+INSERT INTO TERMEK (kod,nev,ar) VALUES ('BB2','MagnesvasutSzelvedo',24.00);
+INSERT INTO TERMEK (kod,nev,ar) VALUES ('BB3','Szemoldokcsipesz',110.00);
+INSERT INTO TERMEK (kod,nev,ar) VALUES ('BB4','Porcelanyanyer',110.00);
+INSERT INTO TERMEK (kod,nev,ar) VALUES ('BC1','Kulcstarto',1.00	);
+INSERT INTO TERMEK (kod,nev,ar) VALUES ('BX9','Szamitogephaz',2.00);
+INSERT INTO TERMEK (kod,nev,ar) VALUES ('NN1','Processzorhuto',3.00	);
 
 INSERT INTO RENDELES (rend_szam,kod,darab,datum,kesz) VALUES ('Aa-1111','AA2',2,'2028-05-10',FALSE);
 INSERT INTO RENDELES (rend_szam,kod,darab,datum,kesz) VALUES ('Aa-1111','AA6',3,'2018-5-09',FALSE);
@@ -46,13 +46,13 @@ INSERT INTO RENDELES (rend_szam,kod,darab,datum,kesz) VALUES ('Xx-1234','BX9',1,
 INSERT INTO RENDELES (rend_szam,kod,darab,datum,kesz) VALUES ('Xy-1234','AA6',2,'2017-11-10',FALSE);
 INSERT INTO RENDELES (rend_szam,kod,darab,datum,kesz) VALUES ('Xy-1234','BB3',1,'2017-11-10',FALSE);
 
-INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (111,'száztizenegy','kg',1.20	,120.00	);
-INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (112,'száztizenketto','m',1.11	,300.00	);
-INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (113,'száztizenhárom','kg',1.00	,0.00	);
-INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (114,'száztizennégy','kg',15.00	,4.25	);
-INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (211,'kettoszáztizenegy','cm',20.00	,0.00);
-INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (310,'háromszáztíz','',5.00,0		);
-INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (320,'háromszázhúsz','m',10.00	,130.00	);
+INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (111,'Vas','kg',1.20	,120.00	);
+INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (112,'Acel','m',1.11	,300.00	);
+INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (113,'Rez','kg',1.00	,0.00	);
+INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (114,'Titan','kg',15.00	,4.25	);
+INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (211,'Muanyag','cm',20.00	,0.00);
+INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (310,'Uranium','',5.00,0		);
+INSERT INTO ANYAG (azonosito,neve,mert_egys,egys_ar,keszlet) VALUES (320,'Freon','m',10.00	,130.00	);
 
 INSERT INTO SZERKEZET (kod,azonosito,mennyiseg) VALUES ('AA1',113,0.10	);
 INSERT INTO SZERKEZET (kod,azonosito,mennyiseg) VALUES ('AA1',114,4.25	);
