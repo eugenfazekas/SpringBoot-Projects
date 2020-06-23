@@ -35,4 +35,10 @@ public class RendelesAPIController {
 
 		 return rendelesService.findProductsUntilDeadline(date);
 	}
+	
+	@GetMapping(path = "/remained")
+	public Integer totalPiecesRemainUndelivered() {
+
+		 return rendelesService.totalPiecesRemainUndelivered();
+	}
 }

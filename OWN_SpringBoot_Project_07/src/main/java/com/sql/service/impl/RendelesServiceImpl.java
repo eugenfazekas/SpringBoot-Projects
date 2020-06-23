@@ -31,4 +31,10 @@ public class RendelesServiceImpl implements RendelesService {
 		return rendelesRepository.findProductsUntilDeadline(date);
 	}
 
+	@Override
+	public Integer totalPiecesRemainUndelivered() {
+		
+		return rendelesRepository.totalPiecesRemainUndelivered();
+	}
+
 }

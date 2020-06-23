@@ -43,4 +43,17 @@ public class AnyagAPIController {
 		return anyagService.findMaterialByUnitsCmOrM(unit1, unit2);
 	}
 	
+	@GetMapping(path = "/count/{unit}")
+	public Integer countMaterialWhereStorageSmallerThen(@PathVariable("unit") String unit,HttpServletResponse response) {
+		
+		return anyagService.countMaterialWhereStorageSmallerThen(unit);
+	}
+	
+	@GetMapping(path = "/search/{name}")
+	public List<Anyag> findMaterialWithLikeOpeator(@PathVariable("name")String name) {
+		
+		return anyagService.findMaterialWithLikeOpeator(name);
+	}
+	
+	
 }

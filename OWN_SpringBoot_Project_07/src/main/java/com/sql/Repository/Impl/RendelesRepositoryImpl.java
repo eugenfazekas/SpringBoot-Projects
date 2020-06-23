@@ -55,5 +55,13 @@ public class RendelesRepositoryImpl implements RendelesRepository {
 		String sql = "SELECT * FROM rendeles where kesz = false AND datum BETWEEN ? AND ? ";
 		return jdbcTemplate.query(sql, mapper,date,datedealine);
 	}
+
+	@Override
+	public Integer totalPiecesRemainUndelivered() {
+		String sql = "SELECT SUM(darab) FROM rendeles WHERE kesz = false";
+		
+		Integer pieces = jdbcTemplate.queryForObject(sql, new Object[] {}, Integer.class);
+		return pieces;
+	}
 	
 }

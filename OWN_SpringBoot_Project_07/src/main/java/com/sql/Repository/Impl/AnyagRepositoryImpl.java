@@ -56,5 +56,22 @@ public class AnyagRepositoryImpl implements AnyagRepository {
 		
 		return jdbcTemplate.query(sql,mapper,unit1,unit2);
 	}
+
+	@Override
+	public Integer countMaterialWhereStorageSmallerThen(String number) {
+		
+		final String  sql = "Select count(*)  from anyag where keszlet < ? ;";
+		int count = jdbcTemplate.queryForObject(sql, new Object[] {number}, Integer.class); 
+		
+		return count;
+	}
+
+	@Override
+	public List<Anyag> findMaterialWithLikeOpeator(String neve) {
+		
+		String neveIn = "%"+neve+"%"; 
+		String sql = "SELECT * FROM anyag WHERE neve LIKE ? ";
+		return jdbcTemplate.query(sql,mapper,neveIn);
+	}
 	
 }

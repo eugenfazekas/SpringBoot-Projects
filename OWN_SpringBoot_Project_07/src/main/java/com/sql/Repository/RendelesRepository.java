@@ -9,5 +9,7 @@ public interface RendelesRepository {
 	public List<Rendeles> findOrderByCharByDate (char character, String date1, String date2);
 	
 	public List<Rendeles> findProductsUntilDeadline(String date);
-
+	
+	public Integer totalPiecesRemainUndelivered();
+	
 }

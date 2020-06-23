@@ -29,5 +29,14 @@ public class TermekRepositoryImpl implements TermekRepository {
 			return n;
 		}
 	};
+
+	@Override
+	public Integer averagePriceOfProducts() {
+		
+		String sql = "SELECT AVG(ar) FROM termek";
+		Integer avgPrice = jdbcTemplate.queryForObject(sql, new Object[] {}, Integer.class);
+		
+		return avgPrice;
+	}
 	
 }

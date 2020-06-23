@@ -10,4 +10,6 @@ public interface RendelesService {
 
 	public List<Rendeles> findProductsUntilDeadline(String date);
 	
+	public Integer totalPiecesRemainUndelivered();
+	
 }

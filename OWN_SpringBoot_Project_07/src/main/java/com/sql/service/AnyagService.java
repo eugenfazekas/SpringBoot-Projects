@@ -11,4 +11,8 @@ public interface AnyagService {
 	public List<Anyag> findMaterialByUnit(String unit);
 	
 	public List<Anyag> findMaterialByUnitsCmOrM(String unit1, String unit2);
+	
+	public Integer countMaterialWhereStorageSmallerThen(String number);
+	
+	public List<Anyag> findMaterialWithLikeOpeator(String neve);
 }

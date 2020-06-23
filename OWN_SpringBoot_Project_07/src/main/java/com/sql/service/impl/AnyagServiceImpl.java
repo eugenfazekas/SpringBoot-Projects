@@ -39,6 +39,20 @@ public class AnyagServiceImpl implements AnyagService {
 	}
 
 
+	@Override
+	public Integer countMaterialWhereStorageSmallerThen(String number) {
+		
+		return anyagRepository.countMaterialWhereStorageSmallerThen(number);
+	}
+
+
+	@Override
+	public List<Anyag> findMaterialWithLikeOpeator(String neve) {
+		
+		return anyagRepository.findMaterialWithLikeOpeator(neve);
+	}
+
+
 	
 
 }
