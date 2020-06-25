@@ -2,6 +2,7 @@ package com.sql.repository.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,5 +30,13 @@ public class SzerkezetRepositoryImpl implements SzerkezetRepository {
 			return n;
 		}
 	};
+
+	@Override
+	public List<Szerkezet> findProductDetails_MaterialsNeededByMaterialId(Integer material) {
+		
+		String sql = "SELECT  kod, azonosito , mennyiseg  FROM szerkezet WHERE kod IN (SELECT kod FROM szerkezet WHERE azonosito = ? )";
+	
+		return 	jdbcTemplate.query(sql, mapper,material);
+	}
 	
 }

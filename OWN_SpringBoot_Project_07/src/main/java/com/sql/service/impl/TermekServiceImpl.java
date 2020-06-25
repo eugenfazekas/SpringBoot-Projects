@@ -2,12 +2,12 @@ package com.sql.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sql.model.Anyag;
 import com.sql.model.AnyagAzonosito;
 import com.sql.model.AnyagNev;
+import com.sql.model.TermekNev;
+import com.sql.model.TermekNev_AnyagAzonosito;
 import com.sql.repository.TermekRepository;
 import com.sql.repository.Termek_Szerkezet_Repository;
 import com.sql.service.TermekService;
@@ -17,9 +17,6 @@ public class TermekServiceImpl implements TermekService {
 
 	private TermekRepository termekRepository;
 	private Termek_Szerkezet_Repository termek_Szerkezet_Repository ;
-	
-	@Autowired
-	
 
 	@Override
 	public Integer averagePriceOfProducts() {
@@ -42,6 +39,18 @@ public class TermekServiceImpl implements TermekService {
 	public List<AnyagNev> listOfMaterialNamesByProductName(String material) {
 		
 		return termek_Szerkezet_Repository.listOfMaterialNamesByProductName(material);
+	}
+
+	@Override
+	public List<TermekNev> findProductsByWhatContainsMaterialID(Integer maerialId) {
+		
+		return termekRepository.findProductsByWhatContainsMaterialID(maerialId);
+	}
+
+	@Override
+	public List<TermekNev_AnyagAzonosito> findProductsWithMaterialsListByOneMaterialID(Integer materialID) {
+		
+		return termek_Szerkezet_Repository.findProductsWithMaterialsListByOneMaterialID(materialID);
 	}
 
 }

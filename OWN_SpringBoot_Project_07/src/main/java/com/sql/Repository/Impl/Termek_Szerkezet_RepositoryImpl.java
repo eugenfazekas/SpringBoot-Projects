@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.sql.model.Anyag;
 import com.sql.model.AnyagAzonosito;
 import com.sql.model.AnyagNev;
+import com.sql.model.TermekNev_AnyagAzonosito;
 import com.sql.repository.Termek_Szerkezet_Repository;
 
 @Repository
@@ -41,6 +41,20 @@ public class Termek_Szerkezet_RepositoryImpl implements Termek_Szerkezet_Reposit
 					
 				return anyag;
 				},material);
+		
+		return anyagok;
+	}
+
+	@Override
+	public List<TermekNev_AnyagAzonosito> findProductsWithMaterialsListByOneMaterialID(Integer materialID) {
+		List<TermekNev_AnyagAzonosito> anyagok = this.jdbcTemplate.query(
+				"SELECT nev, azonosito FROM termek , szerkezet WHERE  termek.kod = szerkezet.kod AND termek.kod IN (SELECT kod FROM szerkezet WHERE azonosito = ? )",
+				(resultSet, rowNum) -> {
+					TermekNev_AnyagAzonosito anyag = new TermekNev_AnyagAzonosito();
+					anyag.setNev(resultSet.getString("nev"));
+					anyag.setAzonosito(resultSet.getInt("azonosito"));
+				return anyag;
+				},materialID);
 		
 		return anyagok;
 	}
