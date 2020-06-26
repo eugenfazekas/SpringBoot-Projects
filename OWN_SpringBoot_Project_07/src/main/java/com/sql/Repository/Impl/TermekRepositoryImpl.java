@@ -9,8 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.sql.model.AnyagNev;
 import com.sql.model.Termek;
+import com.sql.model.TermekDarab;
 import com.sql.model.TermekNev;
 import com.sql.repository.TermekRepository;
 
@@ -55,6 +55,28 @@ public class TermekRepositoryImpl implements TermekRepository {
 				},maerialId);
 		
 		return termeknevek;
+	}
+
+	@Override
+	public List<Termek> findProductsWhatCanBeOrderdButNotOrderedYet() {
+		String sql ="SELECT * FROM termek WHERE kod NOT IN (SELECT kod FROM rendeles)";
+	
+		return jdbcTemplate.query(sql, mapper);
+	}
+
+	@Override
+	public List<TermekDarab> findProductsWhatWasOrderAndHerQuatityAndCanBeOrdered() {
+		List<TermekDarab> termekek = this.jdbcTemplate.query(
+				"SELECT termek.kod, nev,  SUM(darab) FROM termek, rendeles WHERE termek.kod = rendeles.kod GROUP BY termek.kod,nev",
+				(resultSet, rowNum) -> {
+					TermekDarab termek = new TermekDarab();
+					termek.setKod(resultSet.getString("kod"));
+					termek.setNev(resultSet.getString("nev"));
+					termek.setDarab(resultSet.getInt("SUM(DARAB)"));
+				return termek;
+				});
+		
+		return termekek;
 	}
 	
 }

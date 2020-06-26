@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.sql.model.AnyagAzonosito;
 import com.sql.model.AnyagNev;
+import com.sql.model.Termek;
+import com.sql.model.TermekDarab;
 import com.sql.model.TermekNev;
 import com.sql.model.TermekNev_AnyagAzonosito;
 import com.sql.repository.TermekRepository;
@@ -51,6 +53,18 @@ public class TermekServiceImpl implements TermekService {
 	public List<TermekNev_AnyagAzonosito> findProductsWithMaterialsListByOneMaterialID(Integer materialID) {
 		
 		return termek_Szerkezet_Repository.findProductsWithMaterialsListByOneMaterialID(materialID);
+	}
+
+	@Override
+	public List<Termek> findProductsWhatCanBeOrderdButNotOrderedYet() {
+		
+		return termekRepository.findProductsWhatCanBeOrderdButNotOrderedYet();
+	}
+
+	@Override
+	public List<TermekDarab> findProductsWhatWasOrderAndHerQuatityAndCanBeOrdered() {
+		
+		return termekRepository.findProductsWhatWasOrderAndHerQuatityAndCanBeOrdered();
 	}
 
 }

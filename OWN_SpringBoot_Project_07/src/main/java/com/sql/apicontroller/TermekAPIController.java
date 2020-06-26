@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sql.model.AnyagAzonosito;
 import com.sql.model.AnyagNev;
+import com.sql.model.Termek;
+import com.sql.model.TermekDarab;
 import com.sql.model.TermekNev;
 import com.sql.model.TermekNev_AnyagAzonosito;
 import com.sql.service.TermekService;
@@ -54,5 +56,16 @@ public class TermekAPIController {
 		
 		return termekService.findProductsWithMaterialsListByOneMaterialID(materialID);
 	}
+	
+	@GetMapping("notordered")
+	public List<Termek> findProductsWhatCanBeOrderdButNotOrderedYet() {
+		
+		return termekService.findProductsWhatCanBeOrderdButNotOrderedYet();
+	}
 
+	@GetMapping("orderedproductscounted")
+	public List<TermekDarab> findProductsWhatWasOrderAndHerQuatityAndCanBeOrdered() {
+		
+	return termekService.findProductsWhatWasOrderAndHerQuatityAndCanBeOrdered();
+	}
 }
