@@ -15,5 +15,9 @@ public interface TermekRepository {
 	public List<Termek> findProductsWhatCanBeOrderdButNotOrderedYet();
 	
 	public List<TermekDarab> findProductsWhatWasOrderAndHerQuatityAndCanBeOrdered();
+	
+	public List<TermekDarab> countMaterialsForAProduct();
+	
+	public List<TermekDarab> findProductsThatNeedMoreThenTwoMaterials();
 
 }

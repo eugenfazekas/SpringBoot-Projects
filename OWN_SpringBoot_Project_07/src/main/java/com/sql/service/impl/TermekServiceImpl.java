@@ -67,4 +67,16 @@ public class TermekServiceImpl implements TermekService {
 		return termekRepository.findProductsWhatWasOrderAndHerQuatityAndCanBeOrdered();
 	}
 
+	@Override
+	public List<TermekDarab> countMaterialsForAProduct() {
+		
+		return termekRepository.countMaterialsForAProduct();
+	}
+
+	@Override
+	public List<TermekDarab> findProductsThatNeedMoreThenTwoMaterials() {
+		
+		return termekRepository.findProductsThatNeedMoreThenTwoMaterials();
+	}
+
 }

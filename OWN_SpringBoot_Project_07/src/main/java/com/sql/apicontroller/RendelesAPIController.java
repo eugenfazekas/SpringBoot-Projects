@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sql.model.Rendeles;
+import com.sql.model.RendelesNev;
 import com.sql.service.RendelesService;
 
 @RestController
@@ -41,4 +42,11 @@ public class RendelesAPIController {
 
 		 return rendelesService.totalPiecesRemainUndelivered();
 	}
+	
+	@GetMapping(path = "/findOrderByTwoProductsFromOrder/{product1}/{product2}")
+	public List<RendelesNev> findOrderByTwoProductsFromOrder(@PathVariable("product1") String product1 ,@PathVariable("product2") String product2,HttpServletResponse response){
+		
+		return rendelesService.findOrderByTwoProductsFromOrder(product1, product2);
+	}
+	
 }

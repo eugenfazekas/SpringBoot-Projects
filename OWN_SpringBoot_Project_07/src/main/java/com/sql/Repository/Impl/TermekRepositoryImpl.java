@@ -78,5 +78,35 @@ public class TermekRepositoryImpl implements TermekRepository {
 		
 		return termekek;
 	}
+
+	@Override
+	public List<TermekDarab> countMaterialsForAProduct() {
+		List<TermekDarab> termekek = this.jdbcTemplate.query(
+				"SELECT termek.kod , termek.nev, (SELECT COUNT(*) FROM szerkezet WHERE szerkezet.kod = termek.kod) AS db FROM termek",
+				(resultSet, rowNum) -> {
+					TermekDarab termek = new TermekDarab();
+					termek.setKod(resultSet.getString("kod"));
+					termek.setNev(resultSet.getString("nev"));
+					termek.setDarab(resultSet.getInt("DB"));
+				return termek;
+				});
+		
+		return termekek;
+	}
+	
+
+	@Override
+	public List<TermekDarab> findProductsThatNeedMoreThenTwoMaterials() {
+		List<TermekDarab> termekek = this.jdbcTemplate.query(
+				"SELECT kod,  COUNT(*) AS db FROM szerkezet GROUP BY kod HAVING COUNT(*) >= 3",
+				(resultSet, rowNum) -> {
+					TermekDarab termek = new TermekDarab();
+					termek.setKod(resultSet.getString("kod"));
+					termek.setDarab(resultSet.getInt("DB"));
+				return termek;
+				});
+		
+		return termekek;
+	}
 	
 }

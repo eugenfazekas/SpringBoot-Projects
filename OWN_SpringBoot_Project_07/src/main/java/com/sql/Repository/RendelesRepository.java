@@ -3,6 +3,7 @@ package com.sql.repository;
 import java.util.List;
 
 import com.sql.model.Rendeles;
+import com.sql.model.RendelesNev;
 
 public interface RendelesRepository {
 	
@@ -12,4 +13,6 @@ public interface RendelesRepository {
 	
 	public Integer totalPiecesRemainUndelivered();
 	
+	public List<RendelesNev> findOrderByTwoProductsFromOrder(String product1 , String product2);
+
 }

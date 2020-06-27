@@ -68,4 +68,16 @@ public class TermekAPIController {
 		
 	return termekService.findProductsWhatWasOrderAndHerQuatityAndCanBeOrdered();
 	}
+	
+	@GetMapping("countedmaterialtypesforaproduct")
+	public List<TermekDarab> countMaterialsForAProduct() {
+	
+		return termekService.countMaterialsForAProduct();
+	}
+	
+	@GetMapping("findProductsThatNeedMoreThenTwoMaterials")
+	public List<TermekDarab> findProductsThatNeedMoreThenTwoMaterials() {
+		
+		return termekService.findProductsThatNeedMoreThenTwoMaterials();
+	}
 }

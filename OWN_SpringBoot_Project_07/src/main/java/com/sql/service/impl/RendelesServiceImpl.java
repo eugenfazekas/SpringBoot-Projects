@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sql.model.Rendeles;
+import com.sql.model.RendelesNev;
 import com.sql.repository.RendelesRepository;
 import com.sql.service.RendelesService;
 
@@ -35,6 +36,12 @@ public class RendelesServiceImpl implements RendelesService {
 	public Integer totalPiecesRemainUndelivered() {
 		
 		return rendelesRepository.totalPiecesRemainUndelivered();
+	}
+
+	@Override
+	public List<RendelesNev> findOrderByTwoProductsFromOrder(String product1, String product2) {
+	
+		return rendelesRepository.findOrderByTwoProductsFromOrder(product1, product2);
 	}
 
 }

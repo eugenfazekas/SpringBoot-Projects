@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.sql.model.Rendeles;
+import com.sql.model.RendelesNev;
+import com.sql.model.TermekNev_AnyagAzonosito;
 import com.sql.repository.RendelesRepository;
 
 @Repository
@@ -61,6 +63,21 @@ public class RendelesRepositoryImpl implements RendelesRepository {
 		
 		Integer pieces = jdbcTemplate.queryForObject(sql, new Object[] {}, Integer.class);
 		return pieces;
+	}
+
+	@Override
+	public List<RendelesNev> findOrderByTwoProductsFromOrder(String product1, String product2) {
+		
+		// SELECT rend_szam  from rendeles where kod = ? or kod = ? group by rend_szam having count(*) = 2;
+		String  sql = "SELECT rend_szam from rendeles where kod = ? AND rend_szam IN (SELECT rend_szam FROM rendeles WHERE kod = ? )" ; 
+		
+		List<RendelesNev> rendelesek = jdbcTemplate.query(sql, (resultSet, rowNum) -> {
+			RendelesNev rendelesNev = new RendelesNev();
+			rendelesNev.setRendelesNev(resultSet.getString("rend_szam"));
+				return rendelesNev;
+		},product1,product2);
+		
+		return rendelesek;
 	}
 	
 }
