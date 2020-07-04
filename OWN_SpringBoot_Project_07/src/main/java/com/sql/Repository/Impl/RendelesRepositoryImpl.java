@@ -1,17 +1,22 @@
 package com.sql.repository.impl;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
+import com.sql.model.RendelesCheck;
 import com.sql.model.RendelesNev;
+import com.sql.model.TermekDarab;
 import com.sql.model.TermekNev_AnyagAzonosito;
 import com.sql.repository.RendelesRepository;
 
@@ -80,4 +85,70 @@ public class RendelesRepositoryImpl implements RendelesRepository {
 		return rendelesek;
 	}
 	
+	@Override
+	public List<RendelesCheck> findTotalPriceOfAnOrderByDate(String date1, String date2) {
+		List<RendelesCheck> termekek = this.jdbcTemplate.query(
+				"SELECT rendelesfej.rend_szam, SUM(rendeles.darab * termek.ar) AS ertek, MAX(rendelesfej.rend_datum) AS honap FROM rendelesfej, rendeles, termek "
+				+ " WHERE rendelesfej.rend_szam = rendeles.rend_szam "
+				+ " AND rendeles.kod = termek.kod and rendelesfej.rend_datum between ? AND ? GROUP BY rendelesfej.rend_szam ",
+				(resultSet, rowNum) -> {
+					RendelesCheck rendeles = new RendelesCheck();
+					rendeles.setKod(resultSet.getString("rend_szam"));
+					rendeles.setDate(resultSet.getString("honap"));
+					rendeles.setPrice(resultSet.getInt("ertek"));
+				return rendeles;
+				},date1,date2);
+		
+		return termekek;
+	}
+	
+	@Override
+	public List<RendelesCheck> findTotalPriceForAllOrders() {
+		List<RendelesCheck> termekek = this.jdbcTemplate.query(
+				"SELECT rendelesfej.rend_szam, SUM(rendeles.darab * termek.ar) AS ertek, rendelesfej.rend_datum AS honap FROM rendelesfej, rendeles, termek "
+				+ "WHERE rendelesfej.rend_szam = rendeles.rend_szam and rendeles.kod = termek.kod GROUP BY rendelesfej.rend_szam ",
+				(resultSet, rowNum) -> {
+					RendelesCheck rendeles = new RendelesCheck();
+					rendeles.setKod(resultSet.getString("rend_szam"));
+					rendeles.setDate(resultSet.getString("honap"));
+					rendeles.setPrice(resultSet.getInt("ertek"));
+				return rendeles;
+				});
+		
+		return termekek;
+	}
+
+	@Override
+	public int[] bacthUpdateForREND_HONAP_Table() {
+
+		List<RendelesCheck> rendelesek = findTotalPriceForAllOrders();
+		return this.jdbcTemplate.batchUpdate(
+		"INSERT INTO REND_HONAP (rend_szam,ertek,honap) VALUES ( ? , ? , ? ) ",
+		new BatchPreparedStatementSetter() {
+		public void setValues(PreparedStatement ps, int i) throws SQLException {
+			RendelesCheck rendeles = rendelesek.get(i);
+		ps.setString(1, rendeles.getKod());
+		ps.setInt(2, rendeles.getPrice());
+		ps.setString(3, rendeles.getDate());
+		}
+		public int getBatchSize() {
+			return rendelesek.size(); 
+		}
+	});
+	}
+
+	@Override
+	public List<Rend_Honap> findHighestValueOrder() {
+		List<Rend_Honap> rendelesek = this.jdbcTemplate.query(
+				"SELECT rend_szam , ertek ,honap FROM rend_honap WHERE ertek = (SELECT MAX(ertek) FROM rend_honap) ORDER BY rend_szam",
+				(resultSet, rowNum) -> {
+					Rend_Honap rendeles = new Rend_Honap();
+					rendeles.setRend_szam(resultSet.getString("rend_szam"));
+					rendeles.setErtek(resultSet.getInt("ertek"));
+					rendeles.setHonap(resultSet.getString("honap"));
+				return rendeles;
+				});
+		
+		return rendelesek;
+	}
 }

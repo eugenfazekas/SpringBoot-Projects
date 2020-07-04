@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
+import com.sql.model.RendelesCheck;
 import com.sql.model.RendelesNev;
+import com.sql.model.TermekDarab;
 import com.sql.service.RendelesService;
 
 @RestController
@@ -48,5 +51,21 @@ public class RendelesAPIController {
 		
 		return rendelesService.findOrderByTwoProductsFromOrder(product1, product2);
 	}
+	@GetMapping("oredervaluebydate/{date1}/{date2}")
+	public List<RendelesCheck> findTotalPriceOfAnOrderByDate(@PathVariable("date1") String date1, @PathVariable("date2")String date2) {
+		
+		return rendelesService.findTotalPriceOfAnOrderByDate(date1, date2);
+	}
 	
+	@GetMapping(path = "allorders")
+	public List<RendelesCheck> findTotalPriceForAllOrders(){
+		
+		return rendelesService.findTotalPriceForAllOrders();
+	}
+	
+	@GetMapping(path = "highestorder")
+	public List<Rend_Honap> findHighestOrders(){
+		
+		return rendelesService.findHighestValueOrder();
+	}
 }

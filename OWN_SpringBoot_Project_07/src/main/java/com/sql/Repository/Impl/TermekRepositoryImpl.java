@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.sql.model.Termek;
 import com.sql.model.TermekDarab;
 import com.sql.model.TermekNev;
+import com.sql.model.TermekNev_AnyagAzonosito;
 import com.sql.repository.TermekRepository;
 
 @Repository
@@ -108,5 +109,19 @@ public class TermekRepositoryImpl implements TermekRepository {
 		
 		return termekek;
 	}
-	
+
+	@Override
+	public List<TermekDarab> findProductThatHaveTheMostTypeOfMaterials() {
+		List<TermekDarab> termekek = this.jdbcTemplate.query(
+				"SELECT kod, db FROM (SELECT kod , COUNT(*) AS db from szerkezet GROUP BY kod) WHERE db = (SELECT MAX(db) FROM (SELECT COUNT(*) AS db FROM szerkezet GROUP BY kod ))",
+				(resultSet, rowNum) -> {
+					TermekDarab termek = new TermekDarab();
+					termek.setKod(resultSet.getString("kod"));
+					termek.setDarab(resultSet.getInt("DB"));
+				return termek;
+				});
+		
+		return termekek;
+	}
+
 }

@@ -2,7 +2,9 @@ package com.sql.repository;
 
 import java.util.List;
 
+import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
+import com.sql.model.RendelesCheck;
 import com.sql.model.RendelesNev;
 
 public interface RendelesRepository {
@@ -14,5 +16,13 @@ public interface RendelesRepository {
 	public Integer totalPiecesRemainUndelivered();
 	
 	public List<RendelesNev> findOrderByTwoProductsFromOrder(String product1 , String product2);
+		
+	public List<RendelesCheck> findTotalPriceOfAnOrderByDate(String date1, String date2);
+	
+	public List<RendelesCheck> findTotalPriceForAllOrders();
+	
+	public int[] bacthUpdateForREND_HONAP_Table();
+	
+	public List<Rend_Honap> findHighestValueOrder();
 
 }

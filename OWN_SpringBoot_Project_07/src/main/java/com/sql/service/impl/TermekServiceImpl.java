@@ -79,4 +79,12 @@ public class TermekServiceImpl implements TermekService {
 		return termekRepository.findProductsThatNeedMoreThenTwoMaterials();
 	}
 
+	@Override
+	public List<TermekDarab> findProductThatHaveTheMostTypeOfMaterials() {
+		
+		return termekRepository.findProductThatHaveTheMostTypeOfMaterials();
+	}
+
+
+
 }

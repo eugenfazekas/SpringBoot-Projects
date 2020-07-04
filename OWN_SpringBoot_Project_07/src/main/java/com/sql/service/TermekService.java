@@ -28,4 +28,8 @@ public interface TermekService {
 	public List<TermekDarab> countMaterialsForAProduct();
 	
 	public List<TermekDarab> findProductsThatNeedMoreThenTwoMaterials();
+	
+	public List<TermekDarab> findProductThatHaveTheMostTypeOfMaterials();
+	
+	
 }

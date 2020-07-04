@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
+import com.sql.model.RendelesCheck;
 import com.sql.model.RendelesNev;
+import com.sql.model.TermekDarab;
 import com.sql.repository.RendelesRepository;
 import com.sql.service.RendelesService;
 
@@ -43,5 +46,22 @@ public class RendelesServiceImpl implements RendelesService {
 	
 		return rendelesRepository.findOrderByTwoProductsFromOrder(product1, product2);
 	}
+	@Override
+	public List<RendelesCheck> findTotalPriceOfAnOrderByDate(String date1, String date2) {
+	
+		return rendelesRepository.findTotalPriceOfAnOrderByDate(date1, date2);
+	}
 
+	@Override
+	public List<RendelesCheck> findTotalPriceForAllOrders() {
+		
+		return rendelesRepository.findTotalPriceForAllOrders();
+	}
+
+	@Override
+	public List<Rend_Honap> findHighestValueOrder() {
+		rendelesRepository.bacthUpdateForREND_HONAP_Table();
+		
+		return rendelesRepository.findHighestValueOrder();
+	}
 }

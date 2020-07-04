@@ -80,4 +80,11 @@ public class TermekAPIController {
 		
 		return termekService.findProductsThatNeedMoreThenTwoMaterials();
 	}
+	
+	@GetMapping("findProductThatHaveTheMostTypeOfMaterials")
+	public List<TermekDarab> findProductThatHaveTheMostTypeOfMaterials() {
+		
+		return termekService.findProductThatHaveTheMostTypeOfMaterials();
+	}
+
 }
