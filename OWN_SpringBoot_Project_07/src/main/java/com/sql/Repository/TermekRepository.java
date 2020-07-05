@@ -22,5 +22,7 @@ public interface TermekRepository {
 	public List<TermekDarab> findProductsThatNeedMoreThenTwoMaterials();
 	
 	public List<TermekDarab> findProductThatHaveTheMostTypeOfMaterials();
+	
+	public List<TermekNev> findProductsThatDontHavaMaterialListDescription();
 
 }

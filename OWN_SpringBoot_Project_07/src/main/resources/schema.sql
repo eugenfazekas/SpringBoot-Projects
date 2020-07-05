@@ -15,4 +15,4 @@ CREATE TABLE IF NOT EXISTS SZERKEZET
 	(kod VARCHAR(5), FOREIGN KEY(kod) REFERENCES TERMEK, azonosito INT, FOREIGN KEY(azonosito) REFERENCES ANYAG, mennyiseg INT);
 
 CREATE TABLE IF NOT EXISTS REND_HONAP 
-	(rend_szam VARCHAR(10) , ertek INT, honap VARCHAR(30));
+	(rend_szam VARCHAR(10) ,UNIQUE KEY UK_rend_szam(rend_szam) , ertek INT, honap VARCHAR(30));

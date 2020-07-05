@@ -1,5 +1,6 @@
 package com.sql.repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.sql.model.Rend_Honap;
@@ -21,7 +22,7 @@ public interface RendelesRepository {
 	
 	public List<RendelesCheck> findTotalPriceForAllOrders();
 	
-	public int[] bacthUpdateForREND_HONAP_Table();
+	public int[] bacthUpdateForREND_HONAP_Table() throws SQLException;
 	
 	public List<Rend_Honap> findHighestValueOrder();
 

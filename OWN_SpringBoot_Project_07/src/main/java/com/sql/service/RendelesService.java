@@ -5,8 +5,9 @@ import java.util.List;
 import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
+import com.sql.model.RendelesFejTermekLista;
 import com.sql.model.RendelesNev;
-import com.sql.model.TermekDarab;
+
 
 public interface RendelesService {
 
@@ -23,5 +24,7 @@ public interface RendelesService {
 	public List<RendelesCheck> findTotalPriceForAllOrders();
 	
 	public List<Rend_Honap> findHighestValueOrder();
+	
+	public List<RendelesFejTermekLista>countProductsOrderdByCustomers();
 	
 }

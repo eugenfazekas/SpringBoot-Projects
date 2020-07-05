@@ -119,7 +119,7 @@ public class RendelesRepositoryImpl implements RendelesRepository {
 	}
 
 	@Override
-	public int[] bacthUpdateForREND_HONAP_Table() {
+	public int[] bacthUpdateForREND_HONAP_Table() throws SQLException {
 
 		List<RendelesCheck> rendelesek = findTotalPriceForAllOrders();
 		return this.jdbcTemplate.batchUpdate(

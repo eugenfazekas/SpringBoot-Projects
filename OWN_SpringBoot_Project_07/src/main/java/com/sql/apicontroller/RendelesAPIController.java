@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
+import com.sql.model.RendelesFejTermekLista;
 import com.sql.model.RendelesNev;
 import com.sql.model.TermekDarab;
 import com.sql.service.RendelesService;
@@ -67,5 +68,11 @@ public class RendelesAPIController {
 	public List<Rend_Honap> findHighestOrders(){
 		
 		return rendelesService.findHighestValueOrder();
+	}
+	
+	@GetMapping(path = "countProductsOrderdByCustomers")
+	public List<RendelesFejTermekLista> countProductsOrderdByCustomers(){
+		
+		return rendelesService.countProductsOrderdByCustomers();
 	}
 }

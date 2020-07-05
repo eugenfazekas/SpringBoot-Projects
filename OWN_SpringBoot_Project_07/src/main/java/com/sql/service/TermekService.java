@@ -31,5 +31,5 @@ public interface TermekService {
 	
 	public List<TermekDarab> findProductThatHaveTheMostTypeOfMaterials();
 	
-	
+	public List<TermekNev> findProductsThatDontHavaMaterialListDescription();
 }

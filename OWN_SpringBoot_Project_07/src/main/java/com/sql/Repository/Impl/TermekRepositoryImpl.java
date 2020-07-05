@@ -124,4 +124,17 @@ public class TermekRepositoryImpl implements TermekRepository {
 		return termekek;
 	}
 
+	@Override
+	public List<TermekNev> findProductsThatDontHavaMaterialListDescription() {
+		List<TermekNev> termekek = this.jdbcTemplate.query(
+				"SELECT kod AS nincs_szerkezete FROM termek WHERE kod NOT IN (SELECT kod FROM szerkezet)",
+				(resultSet, rowNum) -> {
+					TermekNev termek = new TermekNev();
+					termek.setTermekNev(resultSet.getString("nincs_szerkezete"));
+					return termek;
+				});
+		
+		return termekek;
+	}
+
 }

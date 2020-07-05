@@ -86,5 +86,11 @@ public class TermekAPIController {
 		
 		return termekService.findProductThatHaveTheMostTypeOfMaterials();
 	}
+	
+	@GetMapping("findProductsThatDontHavaMaterialListDescription")
+	public List<TermekNev> findProductsThatDontHavaMaterialListDescription() {
+		
+		return termekService.findProductsThatDontHavaMaterialListDescription();
+	}
 
 }

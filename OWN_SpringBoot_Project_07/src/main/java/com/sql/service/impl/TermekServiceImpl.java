@@ -85,6 +85,12 @@ public class TermekServiceImpl implements TermekService {
 		return termekRepository.findProductThatHaveTheMostTypeOfMaterials();
 	}
 
+	@Override
+	public List<TermekNev> findProductsThatDontHavaMaterialListDescription() {
+		
+		return termekRepository.findProductsThatDontHavaMaterialListDescription();
+	}
+
 
 
 }
