@@ -70,9 +70,7 @@ public class RendelesAPIController {
 		return rendelesService.findHighestValueOrder();
 	}
 	
-	@GetMapping(path = "countProductsOrderdByCustomers")
-	public List<RendelesFejTermekLista> countProductsOrderdByCustomers(){
-		
-		return rendelesService.countProductsOrderdByCustomers();
-	}
+	
+	
+	
 }

@@ -18,14 +18,9 @@ import com.sql.service.RendelesService;
 public class RendelesServiceImpl implements RendelesService {
 
 	private RendelesRepository rendelesRepository;
-	private RendelesfejRepository rendelesfejRepository;
-	
-	
-	
 
-	public RendelesServiceImpl(RendelesRepository rendelesRepository, RendelesfejRepository rendelesfejRepository) {
+	public RendelesServiceImpl(RendelesRepository rendelesRepository ) {
 		this.rendelesRepository = rendelesRepository;
-		this.rendelesfejRepository = rendelesfejRepository;
 	}
 
 	@Override
@@ -73,9 +68,4 @@ public class RendelesServiceImpl implements RendelesService {
 		return rendelesRepository.findHighestValueOrder();
 	}
 
-	@Override
-	public List<RendelesFejTermekLista> countProductsOrderdByCustomers() {
-		
-		return rendelesfejRepository.countProductsOrderdByCustomers();
-	}
 }

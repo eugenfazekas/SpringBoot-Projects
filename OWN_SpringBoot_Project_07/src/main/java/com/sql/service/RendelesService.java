@@ -24,7 +24,6 @@ public interface RendelesService {
 	public List<RendelesCheck> findTotalPriceForAllOrders();
 	
 	public List<Rend_Honap> findHighestValueOrder();
-	
-	public List<RendelesFejTermekLista>countProductsOrderdByCustomers();
+
 	
 }

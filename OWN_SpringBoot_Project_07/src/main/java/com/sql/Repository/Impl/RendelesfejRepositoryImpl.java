@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.sql.model.RendelesByDateAndName;
+import com.sql.model.RendelesByGreatherThen;
 import com.sql.model.RendelesFejTermekLista;
 import com.sql.model.Rendelesfej;
 import com.sql.repository.RendelesfejRepository;
@@ -45,5 +47,41 @@ public class RendelesfejRepositoryImpl implements RendelesfejRepository{
 			return termek;
 		});
 		return termekek;
+	}
+
+	@Override
+	public List<RendelesByDateAndName> findOrderByNameAndDate(Integer partnerkod, String date1, String date2) {
+		String partnerkodIn = "%"+partnerkod+"%";
+		List<RendelesByDateAndName> rendelesek = jdbcTemplate.query(
+				"SELECT partner_kod, kod, SUM(darab),rend_datum FROM rendelesfej, rendeles WHERE rendelesfej.rend_szam = rendeles.rend_szam"
+				+ " AND rend_datum BETWEEN ? AND ? AND partner_kod LIKE ? GROUP BY partner_kod,kod",
+				(resultSet,rowNum) -> {
+					RendelesByDateAndName rendeles = new RendelesByDateAndName();
+					rendeles.setPartnerkod(resultSet.getInt("partner_kod"));
+					rendeles.setKod(resultSet.getString("kod"));
+					rendeles.setDarab(resultSet.getInt("SUM(DARAB)"));
+					rendeles.setDatum(resultSet.getString("rend_datum"));
+				return rendeles;
+				},date1,date2,partnerkodIn
+				);
+				
+		return rendelesek;
+	}
+
+	@Override
+	public List<RendelesByGreatherThen> findOrderThatOneTypeProductQTYIsGreatherThanX(String date1, String date2,String productcode, Integer qty) {
+		String productcodeIn = "%"+productcode+"%";
+		List<RendelesByGreatherThen> rendelesek = jdbcTemplate.query(
+				"SELECT partner_kod ,rendelesfej.rend_szam,kod , SUM(darab) FROM rendelesfej, rendeles WHERE rendelesfej.rend_szam = rendeles.rend_szam "
+				+ "AND rend_datum BETWEEN ? AND ? AND kod LIKE ? GROUP BY partner_kod,kod,rendelesfej.rend_szam HAVING SUM(darab) >  ? ",
+				(resultSet,rowNum) -> {
+					RendelesByGreatherThen rendeles = new RendelesByGreatherThen();
+					rendeles.setPartnerkod(resultSet.getInt("partner_kod"));
+					rendeles.setRend_szam(resultSet.getString("rend_szam"));
+					rendeles.setKod(resultSet.getString("kod"));
+					rendeles.setDarab(resultSet.getInt("SUM(darab)"));
+					return rendeles;
+				},date1,date2,productcodeIn,qty);
+		return rendelesek;
 	}
 }
