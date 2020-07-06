@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.sql.model.AnyagRendeleshez;
 import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
@@ -66,6 +67,12 @@ public class RendelesServiceImpl implements RendelesService {
 			System.out.println("Unique row found");
 		}
 		return rendelesRepository.findHighestValueOrder();
+	}
+
+	@Override
+	public List<AnyagRendeleshez> findMaterialsNeededInDate(String date) {
+		
+		return rendelesRepository.findMaterialsNeededInDate(date);
 	}
 
 }

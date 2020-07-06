@@ -2,6 +2,7 @@ package com.sql.service;
 
 import java.util.List;
 
+import com.sql.model.AnyagRendeleshez;
 import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
@@ -25,5 +26,5 @@ public interface RendelesService {
 	
 	public List<Rend_Honap> findHighestValueOrder();
 
-	
+	public List<AnyagRendeleshez> findMaterialsNeededInDate(String date);
 }

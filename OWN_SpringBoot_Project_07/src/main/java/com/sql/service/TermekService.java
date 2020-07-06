@@ -6,6 +6,7 @@ import com.sql.model.AnyagAzonosito;
 import com.sql.model.AnyagNev;
 import com.sql.model.Termek;
 import com.sql.model.TermekDarab;
+import com.sql.model.TermekGyarthato;
 import com.sql.model.TermekNev;
 import com.sql.model.TermekNev_AnyagAzonosito;
 
@@ -32,4 +33,6 @@ public interface TermekService {
 	public List<TermekDarab> findProductThatHaveTheMostTypeOfMaterials();
 	
 	public List<TermekNev> findProductsThatDontHavaMaterialListDescription();
+	
+	public List<TermekGyarthato> listProductsThatCanBeManufacturedOrNot();
 }

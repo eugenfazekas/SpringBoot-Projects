@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sql.model.AnyagRendeleshez;
 import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
@@ -70,7 +71,10 @@ public class RendelesAPIController {
 		return rendelesService.findHighestValueOrder();
 	}
 	
-	
-	
+	@GetMapping("findmaterialsneededindate/{date}")
+	public List<AnyagRendeleshez> findMaterialsNeededInDate(@PathVariable String date){
+		
+		return rendelesService.findMaterialsNeededInDate(date);
+	}
 	
 }

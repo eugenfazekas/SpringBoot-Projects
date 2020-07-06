@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sql.model.Termek;
 import com.sql.model.TermekDarab;
+import com.sql.model.TermekGyarthato;
 import com.sql.model.TermekNev;
 import com.sql.model.TermekNev_AnyagAzonosito;
 
@@ -24,5 +25,7 @@ public interface TermekRepository {
 	public List<TermekDarab> findProductThatHaveTheMostTypeOfMaterials();
 	
 	public List<TermekNev> findProductsThatDontHavaMaterialListDescription();
+	
+	public List<TermekGyarthato> listProductsThatCanBeManufacturedOrNot();
 
 }

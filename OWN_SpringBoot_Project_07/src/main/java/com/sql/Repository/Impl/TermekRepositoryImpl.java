@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sql.model.Termek;
 import com.sql.model.TermekDarab;
+import com.sql.model.TermekGyarthato;
 import com.sql.model.TermekNev;
 import com.sql.model.TermekNev_AnyagAzonosito;
 import com.sql.repository.TermekRepository;
@@ -134,6 +135,23 @@ public class TermekRepositoryImpl implements TermekRepository {
 					return termek;
 				});
 		
+		return termekek;
+	}
+
+	@Override
+	public List<TermekGyarthato> listProductsThatCanBeManufacturedOrNot() {
+		List<TermekGyarthato> termekek = jdbcTemplate.query(
+				"SELECT termek.kod,nev, 'legyarthato' AS Gyarthat FROM termek WHERE 0 <= ALL (SELECT keszlet - mennyiseg "
+				+ "FROM szerkezet,anyag WHERE szerkezet.azonosito = anyag.azonosito AND szerkezet.kod = termek.kod) UNION "
+				+ "SELECT termek.kod,nev, 'nem legyarthato le' AS Gyarthat FROM termek WHERE 0 > ANY (SELECT keszlet - mennyiseg "
+				+ "FROM szerkezet, anyag WHERE szerkezet.azonosito = anyag.azonosito AND szerkezet.kod = termek.kod) ORDER BY nev;",
+				(resultSet,rowNum) -> {
+					TermekGyarthato termek = new TermekGyarthato();
+					termek.setKod(resultSet.getString("kod"));
+					termek.setNev(resultSet.getString("nev"));
+					termek.setGyarthat(resultSet.getString("gyarthat"));
+					return termek;
+				});
 		return termekek;
 	}
 

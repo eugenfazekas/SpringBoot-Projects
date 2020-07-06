@@ -12,6 +12,7 @@ import com.sql.model.AnyagAzonosito;
 import com.sql.model.AnyagNev;
 import com.sql.model.Termek;
 import com.sql.model.TermekDarab;
+import com.sql.model.TermekGyarthato;
 import com.sql.model.TermekNev;
 import com.sql.model.TermekNev_AnyagAzonosito;
 import com.sql.service.TermekService;
@@ -93,4 +94,9 @@ public class TermekAPIController {
 		return termekService.findProductsThatDontHavaMaterialListDescription();
 	}
 
+	@GetMapping("listProductsThatCanBeManufacturedOrNot")
+	public List<TermekGyarthato> listProductsThatCanBeManufacturedOrNot(){
+		
+		return termekService.listProductsThatCanBeManufacturedOrNot();
+	}
 }

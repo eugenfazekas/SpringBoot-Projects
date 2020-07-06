@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.sql.model.AnyagRendeleshez;
 import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
@@ -150,5 +151,22 @@ public class RendelesRepositoryImpl implements RendelesRepository {
 				});
 		
 		return rendelesek;
+	}
+
+	@Override
+	public List<AnyagRendeleshez> findMaterialsNeededInDate(String date) {
+		List<AnyagRendeleshez> anyagokRendeleshez = jdbcTemplate.query(
+				"SELECT anyag.azonosito, MAX(anyag.neve) AS Anyagnev, SUM(rendeles.darab * szerkezet.mennyiseg) AS Osszes_Anyag , MIN(anyag.mert_egys) AS Mertekegyseg "
+				+ "FROM rendeles, szerkezet, anyag WHERE rendeles.kod = szerkezet.kod AND szerkezet.azonosito = anyag.azonosito "
+				+ "AND rendeles.datum = ? GROUP BY anyag.azonosito",
+				(resultSet,rowNum) -> {
+					AnyagRendeleshez anyag = new AnyagRendeleshez();
+					anyag.setAzonosito(resultSet.getInt("azonosito"));
+					anyag.setAnyagnev(resultSet.getString("anyagnev"));
+					anyag.setOsszes_anyag(resultSet.getInt("osszes_anyag"));
+					anyag.setMertekegyseg(resultSet.getString("mertekegyseg"));
+					return anyag;
+				},date );
+		return anyagokRendeleshez;
 	}
 }

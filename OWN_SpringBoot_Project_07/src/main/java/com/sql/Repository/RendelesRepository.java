@@ -3,6 +3,7 @@ package com.sql.repository;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.sql.model.AnyagRendeleshez;
 import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
@@ -25,5 +26,7 @@ public interface RendelesRepository {
 	public int[] bacthUpdateForREND_HONAP_Table() throws SQLException;
 	
 	public List<Rend_Honap> findHighestValueOrder();
+	
+	public List<AnyagRendeleshez> findMaterialsNeededInDate(String date);
 
 }
