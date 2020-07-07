@@ -18,7 +18,9 @@ import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
 import com.sql.model.RendelesNev;
 import com.sql.model.TermekDarab;
+import com.sql.model.TermekNemRendelt;
 import com.sql.model.TermekNev_AnyagAzonosito;
+import com.sql.model.TermekRendeles;
 import com.sql.repository.RendelesRepository;
 
 @Repository
@@ -168,5 +170,33 @@ public class RendelesRepositoryImpl implements RendelesRepository {
 					return anyag;
 				},date );
 		return anyagokRendeleshez;
+	}
+
+	@Override
+	public List<TermekRendeles> countHowMuchTimesOrderdOneProduct() {
+		List<TermekRendeles> termekek = jdbcTemplate.query(
+				"SELECT kod, db FROM (SELECT kod , COUNT(*) AS db from rendeles GROUP BY kod) WHERE 0 <  (SELECT MAX(db) FROM (SELECT COUNT(*) AS db FROM rendeles GROUP BY kod ))",
+				(resultSet,rowNum) -> {
+					TermekRendeles termek = new TermekRendeles();
+					termek.setKod(resultSet.getString("kod"));
+					termek.setRendelesek(resultSet.getInt("db"));
+					return termek;
+				}
+				);
+		return termekek;
+	}
+	
+	@Override
+	public List<TermekNemRendelt> findProductsThatWasNotOrderd() {
+		List<TermekNemRendelt> termekek = jdbcTemplate.query(
+				"SELECT kod,nev FROM termek WHERE kod NOT IN (SELECT kod FROM rendeles)",
+				(resultSet,rowNum) -> {
+					TermekNemRendelt termek = new TermekNemRendelt();
+					termek.setKod(resultSet.getString("kod"));
+					termek.setNev(resultSet.getString("nev"));
+					return termek;
+				}
+				);
+		return termekek;
 	}
 }

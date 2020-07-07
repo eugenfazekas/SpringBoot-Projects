@@ -70,3 +70,8 @@ INSERT INTO SZERKEZET (kod,azonosito,mennyiseg) VALUES ('BC1',111,3.00	);
 INSERT INTO SZERKEZET (kod,azonosito,mennyiseg) VALUES ('BX9',111,4.00	);
 INSERT INTO SZERKEZET (kod,azonosito,mennyiseg) VALUES ('NN1',310,3.00	);
 INSERT INTO SZERKEZET (kod,azonosito,mennyiseg) VALUES ('NN1',320,4.00	);
+
+INSERT INTO PARTNER (partner_kod) Values 113;
+INSERT INTO PARTNER (partner_kod) Values 117;
+INSERT INTO PARTNER (partner_kod) Values 120;
+

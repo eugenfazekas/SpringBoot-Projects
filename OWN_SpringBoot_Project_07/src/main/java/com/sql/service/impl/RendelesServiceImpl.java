@@ -11,6 +11,8 @@ import com.sql.model.RendelesCheck;
 import com.sql.model.RendelesFejTermekLista;
 import com.sql.model.RendelesNev;
 import com.sql.model.TermekDarab;
+import com.sql.model.TermekNemRendelt;
+import com.sql.model.TermekRendeles;
 import com.sql.repository.RendelesRepository;
 import com.sql.repository.RendelesfejRepository;
 import com.sql.service.RendelesService;
@@ -73,6 +75,18 @@ public class RendelesServiceImpl implements RendelesService {
 	public List<AnyagRendeleshez> findMaterialsNeededInDate(String date) {
 		
 		return rendelesRepository.findMaterialsNeededInDate(date);
+	}
+
+	@Override
+	public List<TermekRendeles> countHowMuchTimesOrderdOneProduct() {
+		
+		return rendelesRepository.countHowMuchTimesOrderdOneProduct();
+	}
+
+	@Override
+	public List<TermekNemRendelt> findProductsThatWasNotOrderd() {
+		
+		return rendelesRepository.findProductsThatWasNotOrderd();
 	}
 
 }

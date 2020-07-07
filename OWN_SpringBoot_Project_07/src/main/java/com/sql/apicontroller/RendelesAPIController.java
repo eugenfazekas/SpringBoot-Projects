@@ -17,6 +17,8 @@ import com.sql.model.RendelesCheck;
 import com.sql.model.RendelesFejTermekLista;
 import com.sql.model.RendelesNev;
 import com.sql.model.TermekDarab;
+import com.sql.model.TermekNemRendelt;
+import com.sql.model.TermekRendeles;
 import com.sql.service.RendelesService;
 
 @RestController
@@ -77,4 +79,15 @@ public class RendelesAPIController {
 		return rendelesService.findMaterialsNeededInDate(date);
 	}
 	
+	@GetMapping("countHowMuchTimesOrderdOneProduct")
+	public List<TermekRendeles> countHowMuchTimesOrderdOneProduct() {
+		
+		return rendelesService.countHowMuchTimesOrderdOneProduct();
+	}
+	
+	@GetMapping("findProductsThatWasNotOrderd")
+	public List<TermekNemRendelt> findProductsThatWasNotOrderd() {
+		
+		return rendelesService.findProductsThatWasNotOrderd();
+	}
 }

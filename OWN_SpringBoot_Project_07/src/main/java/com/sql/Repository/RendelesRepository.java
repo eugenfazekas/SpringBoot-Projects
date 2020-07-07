@@ -8,6 +8,8 @@ import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
 import com.sql.model.RendelesNev;
+import com.sql.model.TermekNemRendelt;
+import com.sql.model.TermekRendeles;
 
 public interface RendelesRepository {
 	
@@ -28,5 +30,9 @@ public interface RendelesRepository {
 	public List<Rend_Honap> findHighestValueOrder();
 	
 	public List<AnyagRendeleshez> findMaterialsNeededInDate(String date);
+	
+	public List<TermekRendeles> countHowMuchTimesOrderdOneProduct();
+	
+	public List<TermekNemRendelt>  findProductsThatWasNotOrderd();
 
 }
