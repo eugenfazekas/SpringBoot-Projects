@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sql.model.Partner;
 import com.sql.model.RendelesByDateAndName;
 import com.sql.model.RendelesByGreatherThen;
 import com.sql.model.RendelesFejTermekLista;
@@ -41,5 +42,17 @@ public class RendelesFejAPIController {
 			@PathVariable("productcode")String productcode,@PathVariable("qty") Integer qty){
 		
 		return rendelesFejService.findOrderThatOneTypeProductQTYIsGreatherThanX(date1, date2, productcode, qty);
+	}
+	
+	@GetMapping("findCustomersThatHaveAllOrdersABoveXValue/{targetvalue}")
+	public List<Partner> findCustomersThatHaveAllOrdersABoveXValue(@PathVariable("targetvalue")Integer targetvalue) {
+		
+		return rendelesFejService.findCustomersThatHaveAllOrdersABoveXValue(targetvalue);
+	}
+	
+	@GetMapping("findCustomersThatHaveOrdersBeloveXValue/{targetvalue}")
+	public List<Partner> findCustomersThatHaveOrdersBeloveXValue(@PathVariable("targetvalue")Integer targetvalue) {
+		
+		return rendelesFejService.findCustomersThatHaveOrdersBeloveXValue(targetvalue);
 	}
 }

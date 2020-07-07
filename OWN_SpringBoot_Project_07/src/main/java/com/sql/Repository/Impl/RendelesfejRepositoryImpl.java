@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.sql.model.Partner;
 import com.sql.model.RendelesByDateAndName;
 import com.sql.model.RendelesByGreatherThen;
 import com.sql.model.RendelesFejTermekLista;
@@ -83,5 +84,33 @@ public class RendelesfejRepositoryImpl implements RendelesfejRepository{
 					return rendeles;
 				},date1,date2,productcodeIn,qty);
 		return rendelesek;
+	}
+
+	@Override
+	public List<Partner> findCustomersThatHaveAllOrdersABoveXValue(Integer targetvalue) {
+		List<Partner> partnerek = jdbcTemplate.query(
+				"SELECT partner_kod from partner WHERE ? < ALL (SELECT SUM(darab*ar) FROM rendelesfej,rendeles,termek WHERE rendelesfej.partner_kod = partner.partner_kod "
+				+ "AND rendelesfej.rend_szam = rendeles.rend_szam AND rendeles.kod = termek.kod GROUP BY rendelesfej.rend_szam)",
+				(resultSet,rowNum) -> {
+					Partner partner = new Partner();
+					partner.setPartner(resultSet.getInt("partner_kod"));
+					return partner;
+				},targetvalue
+				);
+		return partnerek;
+	}
+
+	@Override
+	public List<Partner> findCustomersThatHaveOrdersBeloveXValue(Integer targetvalue) {
+		List<Partner> partnerek = jdbcTemplate.query(
+				"SELECT partner_kod from partner WHERE EXISTS (SELECT SUM(darab*ar) FROM rendelesfej,rendeles,termek WHERE rendelesfej.partner_kod = partner.partner_kod "
+				+ "AND rendelesfej.rend_szam = rendeles.rend_szam AND rendeles.kod = termek.kod GROUP BY rendelesfej.rend_szam HAVING SUM(darab*ar) <= ?)",
+				(resultSet,rowNum) -> {
+					Partner partner = new Partner();
+					partner.setPartner(resultSet.getInt("partner_kod"));
+					return partner;
+				},targetvalue
+				);
+		return partnerek;
 	}
 }

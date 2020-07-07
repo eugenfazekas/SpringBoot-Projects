@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.sql.model.Partner;
 import com.sql.model.RendelesByDateAndName;
 import com.sql.model.RendelesByGreatherThen;
 import com.sql.model.RendelesFejTermekLista;
@@ -37,6 +38,18 @@ public class RendelesFejServiceImpl implements RendelesFejService {
 			String productcode, Integer qty) {
 	
 		return rendelesfejRepository.findOrderThatOneTypeProductQTYIsGreatherThanX(date1, date2, productcode, qty);
+	}
+
+	@Override
+	public List<Partner> findCustomersThatHaveAllOrdersABoveXValue(Integer targetvalue) {
+		
+		return rendelesfejRepository.findCustomersThatHaveAllOrdersABoveXValue(targetvalue);
+	}
+
+	@Override
+	public List<Partner> findCustomersThatHaveOrdersBeloveXValue(Integer targetvalue) {
+		
+		return rendelesfejRepository.findCustomersThatHaveOrdersBeloveXValue(targetvalue);
 	}
 
 }
