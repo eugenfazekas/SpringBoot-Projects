@@ -15,6 +15,7 @@ import com.sql.model.TermekDarab;
 import com.sql.model.TermekGyarthato;
 import com.sql.model.TermekNev;
 import com.sql.model.TermekNev_AnyagAzonosito;
+import com.sql.model.TermekVelemeny;
 import com.sql.service.TermekService;
 
 @RestController
@@ -98,5 +99,11 @@ public class TermekAPIController {
 	public List<TermekGyarthato> listProductsThatCanBeManufacturedOrNot(){
 		
 		return termekService.listProductsThatCanBeManufacturedOrNot();
+	}
+	
+	@GetMapping("productsPriceOpinion")
+	public List<TermekVelemeny> productsPriceOpinion(){
+		
+		return termekService.productsPriceOpinion();
 	}
 }

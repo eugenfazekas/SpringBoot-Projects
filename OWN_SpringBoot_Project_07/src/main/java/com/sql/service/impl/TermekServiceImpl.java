@@ -11,6 +11,7 @@ import com.sql.model.TermekDarab;
 import com.sql.model.TermekGyarthato;
 import com.sql.model.TermekNev;
 import com.sql.model.TermekNev_AnyagAzonosito;
+import com.sql.model.TermekVelemeny;
 import com.sql.repository.TermekRepository;
 import com.sql.repository.Termek_Szerkezet_Repository;
 import com.sql.service.TermekService;
@@ -96,6 +97,14 @@ public class TermekServiceImpl implements TermekService {
 	public List<TermekGyarthato> listProductsThatCanBeManufacturedOrNot() {
 		
 		return termekRepository.listProductsThatCanBeManufacturedOrNot();
+	}
+
+	@Override
+	public List<TermekVelemeny> productsPriceOpinion() {
+		try {
+		termekRepository.bacthUpdateProductsPrice();
+		} catch (Exception e){ System.out.println("Products price already inserted");}
+		return termekRepository.productsPriceOpinion();
 	}
 
 }

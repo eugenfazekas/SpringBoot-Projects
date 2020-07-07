@@ -1,19 +1,25 @@
 package com.sql.repository.impl;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.sql.model.RendelesCheck;
 import com.sql.model.Termek;
 import com.sql.model.TermekDarab;
 import com.sql.model.TermekGyarthato;
 import com.sql.model.TermekNev;
 import com.sql.model.TermekNev_AnyagAzonosito;
+import com.sql.model.TermekVelemeny;
+import com.sql.repository.TermekAr;
 import com.sql.repository.TermekRepository;
 
 @Repository
@@ -153,6 +159,54 @@ public class TermekRepositoryImpl implements TermekRepository {
 					return termek;
 				});
 		return termekek;
+	}
+
+	@Override
+	public List<TermekAr> listProductsPrice() {
+		List<TermekAr> termekarak = jdbcTemplate.query(
+				"SELECT kod , SUM(mennyiseg * egys_ar) AS aar FROM szerkezet, anyag WHERE szerkezet.azonosito = anyag.azonosito GROUP BY kod",
+				(resultSet,rowNum) -> {
+					TermekAr termekar = new TermekAr();
+					termekar.setKod(resultSet.getString("kod"));
+					termekar.setAr(resultSet.getInt("aar"));
+					return termekar;
+				}
+				);
+		return termekarak;
+	}
+	
+	@Override
+	public int[] bacthUpdateProductsPrice() {
+		List<TermekAr> termekarak = listProductsPrice();
+			return this.jdbcTemplate.batchUpdate(
+				"INSERT INTO TERMEKARAK (kod, aar) VALUES ( ? , ? ) ",
+				new BatchPreparedStatementSetter() {
+				public void setValues(PreparedStatement ps, int i) throws SQLException {
+					TermekAr termekAr = termekarak.get(i);
+				ps.setString(1, termekAr.getKod());
+				ps.setInt(2, termekAr.getAr());
+				}
+				public int getBatchSize() {
+					return termekarak.size(); 
+				}
+			});
+			}
+
+	@Override
+	public List<TermekVelemeny> productsPriceOpinion() {
+		
+		List<TermekVelemeny> termekvelemenyek = jdbcTemplate.query(
+				"SELECT kod, szoveg FROM termekarak, minosit kulso WHERE aar >= kulso.also "
+				+ "AND kulso.also = (SELECT MAX(belso.also) FROM minosit belso WHERE aar >= belso.also)",
+				(resultSet,rowNum) -> {
+					TermekVelemeny termekvelemeny = new TermekVelemeny();
+					termekvelemeny.setKod(resultSet.getString("kod"));
+					termekvelemeny.setSzoveg(resultSet.getString("szoveg"));
+					return termekvelemeny;
+				}
+				);
+		
+		return termekvelemenyek;
 	}
 
 }

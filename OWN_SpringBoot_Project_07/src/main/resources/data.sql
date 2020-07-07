@@ -75,3 +75,7 @@ INSERT INTO PARTNER (partner_kod) Values 113;
 INSERT INTO PARTNER (partner_kod) Values 117;
 INSERT INTO PARTNER (partner_kod) Values 120;
 
+INSERT INTO minosit (szoveg,also) VALUES ('olcso' , 0);
+INSERT INTO minosit (szoveg,also) VALUES ('kozepes' , 100);
+INSERT INTO minosit (szoveg,also) VALUES ('draga' , 1000);
+

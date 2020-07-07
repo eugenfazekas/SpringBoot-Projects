@@ -9,6 +9,7 @@ import com.sql.model.TermekDarab;
 import com.sql.model.TermekGyarthato;
 import com.sql.model.TermekNev;
 import com.sql.model.TermekNev_AnyagAzonosito;
+import com.sql.model.TermekVelemeny;
 
 public interface TermekService {
 
@@ -35,4 +36,6 @@ public interface TermekService {
 	public List<TermekNev> findProductsThatDontHavaMaterialListDescription();
 	
 	public List<TermekGyarthato> listProductsThatCanBeManufacturedOrNot();
+	
+	public List<TermekVelemeny> productsPriceOpinion();
 }
