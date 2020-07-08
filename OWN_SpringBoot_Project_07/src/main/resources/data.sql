@@ -79,3 +79,20 @@ INSERT INTO minosit (szoveg,also) VALUES ('olcso' , 0);
 INSERT INTO minosit (szoveg,also) VALUES ('kozepes' , 100);
 INSERT INTO minosit (szoveg,also) VALUES ('draga' , 1000);
 
+INSERT INTO KEDVEZMENY (also,felso,szazalek) VALUES (0 , 99 , 0);
+INSERT INTO KEDVEZMENY (also,felso,szazalek) VALUES (100, 199 , 0.1);
+INSERT INTO KEDVEZMENY (also,felso,szazalek) VALUES (200 , 1000000 ,  0.2);
+
+INSERT INTO TERMEK_B (kod,bonyolultsag) VALUES ('AA6',1);
+INSERT INTO TERMEK_B (kod,bonyolultsag) VALUES ('BB3',1);
+INSERT INTO TERMEK_B (kod,bonyolultsag) VALUES ('BB4',1);
+INSERT INTO TERMEK_B (kod,bonyolultsag) VALUES ('BC1',1);
+INSERT INTO TERMEK_B (kod,bonyolultsag) VALUES ('BX9',1);
+INSERT INTO TERMEK_B (kod,bonyolultsag) VALUES ('AA1',2);
+INSERT INTO TERMEK_B (kod,bonyolultsag) VALUES ('AA2',2);
+INSERT INTO TERMEK_B (kod,bonyolultsag) VALUES ('BB2',2);
+INSERT INTO TERMEK_B (kod,bonyolultsag) VALUES ('NN1',2);
+INSERT INTO TERMEK_B (kod,bonyolultsag) VALUES ('AA3',3);
+
+
+

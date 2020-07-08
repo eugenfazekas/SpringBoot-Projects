@@ -16,6 +16,7 @@ import com.sql.model.AnyagRendeleshez;
 import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
+import com.sql.model.RendelesErtek;
 import com.sql.model.RendelesNev;
 import com.sql.model.TermekDarab;
 import com.sql.model.TermekNemRendelt;
@@ -199,4 +200,39 @@ public class RendelesRepositoryImpl implements RendelesRepository {
 				);
 		return termekek;
 	}
+
+	@Override
+	public int[] bacthUpdateRENDELESEK_OSSZARTable() throws SQLException {
+		List<RendelesCheck> rendelesek = findTotalPriceForAllOrders();
+		return this.jdbcTemplate.batchUpdate(
+		"INSERT INTO RENDELESEK_OSSZAR (rrend_szam,osszar) VALUES ( ? , ? ) ",
+		new BatchPreparedStatementSetter() {
+		public void setValues(PreparedStatement ps, int i) throws SQLException {
+			RendelesCheck rendeles = rendelesek.get(i);
+		ps.setString(1, rendeles.getKod());
+		ps.setInt(2, rendeles.getPrice());
+		}
+		public int getBatchSize() {
+			return rendelesek.size(); 
+		}
+	});
+	}
+	
+	@Override
+	public List<RendelesErtek> findOrdersDiscount() {
+		List<RendelesErtek> rendelesarak = jdbcTemplate.query(
+				"SELECT rrend_szam , osszar , osszar*szazalek AS enged FROM rendelesek_osszar, kedvezmeny WHERE osszar >= also AND osszar <= felso",
+				(resultSet,rowNum) -> {
+					RendelesErtek rendeles = new RendelesErtek();
+					rendeles.setRrend_szam(resultSet.getString("rrend_szam"));
+					rendeles.setOsszertek(resultSet.getInt("osszar"));
+					rendeles.setEngedmeny(resultSet.getInt("enged"));
+					return rendeles;
+				}
+				);
+		return rendelesarak;
+	}
+
+	
+
 }

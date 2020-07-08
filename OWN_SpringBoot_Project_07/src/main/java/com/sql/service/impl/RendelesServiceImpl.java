@@ -8,6 +8,7 @@ import com.sql.model.AnyagRendeleshez;
 import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
+import com.sql.model.RendelesErtek;
 import com.sql.model.RendelesFejTermekLista;
 import com.sql.model.RendelesNev;
 import com.sql.model.TermekDarab;
@@ -87,6 +88,16 @@ public class RendelesServiceImpl implements RendelesService {
 	public List<TermekNemRendelt> findProductsThatWasNotOrderd() {
 		
 		return rendelesRepository.findProductsThatWasNotOrderd();
+	}
+
+	@Override
+	public List<RendelesErtek> findOrdersDiscount() {
+		try {
+			rendelesRepository.bacthUpdateRENDELESEK_OSSZARTable();
+		}catch (Exception e) {System.out.println("Rendeles Osszar alredy Updated");
+		}
+		
+		return rendelesRepository.findOrdersDiscount();
 	}
 
 }

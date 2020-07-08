@@ -1,4 +1,4 @@
-package com.sql.repository;
+package com.sql.model;
 
 public class TermekAr {
 

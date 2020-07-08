@@ -14,6 +14,7 @@ import com.sql.model.AnyagRendeleshez;
 import com.sql.model.Rend_Honap;
 import com.sql.model.Rendeles;
 import com.sql.model.RendelesCheck;
+import com.sql.model.RendelesErtek;
 import com.sql.model.RendelesFejTermekLista;
 import com.sql.model.RendelesNev;
 import com.sql.model.TermekDarab;
@@ -89,5 +90,11 @@ public class RendelesAPIController {
 	public List<TermekNemRendelt> findProductsThatWasNotOrderd() {
 		
 		return rendelesService.findProductsThatWasNotOrderd();
+	}
+	
+	@GetMapping("findOrdersDiscount")
+	public List<RendelesErtek> findOrdersDiscount() {
+		
+		return rendelesService.findOrdersDiscount();
 	}
 }

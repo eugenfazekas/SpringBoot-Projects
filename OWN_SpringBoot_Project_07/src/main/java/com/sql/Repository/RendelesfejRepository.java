@@ -5,6 +5,7 @@ import java.util.List;
 import com.sql.model.Partner;
 import com.sql.model.RendelesByDateAndName;
 import com.sql.model.RendelesByGreatherThen;
+import com.sql.model.RendelesErtek;
 import com.sql.model.RendelesFejTermekLista;
 
 public interface RendelesfejRepository {
