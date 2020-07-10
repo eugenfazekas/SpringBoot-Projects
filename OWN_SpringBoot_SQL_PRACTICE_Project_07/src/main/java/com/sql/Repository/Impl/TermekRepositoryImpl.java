@@ -20,6 +20,8 @@ import com.sql.model.TermekDarab;
 import com.sql.model.TermekGyarthato;
 import com.sql.model.TermekNev;
 import com.sql.model.TermekNev_AnyagAzonosito;
+import com.sql.model.TermekRendelesek;
+import com.sql.model.TermekUtolsoRendeles;
 import com.sql.model.TermekVelemeny;
 import com.sql.repository.TermekRepository;
 
@@ -224,6 +226,40 @@ public class TermekRepositoryImpl implements TermekRepository {
 				 }
 				 );
 		return termeklista;
+	}
+
+	@Override
+	public List<TermekRendelesek> listProductsWasOrderd_ProductsWasNotOrdered_OrdersWithWrongOrderName() {
+		List<TermekRendelesek> termekek = jdbcTemplate.query(
+				"SELECT rendeles.kod,nev, '' AS megjegyzes, '' AS rendelesszam FROM rendeles INNER JOIN termek ON rendeles.kod = termek.kod "
+				+ "UNION SELECT termek.kod , nev , 'meg nem rendeltek meg', '' FROM rendeles RIGHT JOIN termek ON rendeles.kod = termek.kod WHERE rendeles.kod is null "
+				+ "UNION SELECT rendeles.kod, '', 'hibas termekkod', rend_szam FROM rendeles LEFT JOIN termek on rendeles.kod = termek.kod WHERE termek.kod IS NULL ORDER BY 4,3,1",
+				(resutlSet,rowNum) -> {
+					TermekRendelesek termek = new TermekRendelesek();
+					termek.setKod(resutlSet.getString("kod"));
+					termek.setNev(resutlSet.getString("nev"));
+					termek.setMegjegyzes(resutlSet.getString("megjegyzes"));
+					termek.setHibas_rendelesszam(resutlSet.getString("rendelesszam"));
+					return termek;
+				}
+				);
+		return termekek;
+	}
+
+	@Override
+	public List<TermekUtolsoRendeles> findProductsLastOrderdDate() {
+		List<TermekUtolsoRendeles> termekek = jdbcTemplate.query(
+				"SELECT termek.kod , nev ,utolso FROM termek LEFT JOIN (SELECT kod , MAX(rend_datum) AS utolso FROM rendelesfej"
+				+ " INNER JOIN rendeles ON rendelesfej.rend_szam = rendeles.rend_szam GROUP BY kod) AS rendelesutolso ON termek.kod = rendelesutolso.kod ORDER BY utolso",
+				(resultSet,rowNum) -> {
+					TermekUtolsoRendeles termek = new TermekUtolsoRendeles();
+					termek.setKod(resultSet.getString("kod"));
+					termek.setNev(resultSet.getString("nev"));
+					termek.setDate(resultSet.getString("utolso"));
+					return termek;
+				}
+				);
+		return termekek;
 	}
 
 }
