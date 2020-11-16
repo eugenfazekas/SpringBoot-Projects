@@ -1,0 +1,14 @@
+<div class="card bg-warning" style="border:4px solid white;" (contextmenu)="__elementSelectionService.select('1798542179',$event)" [ngStyle]="__elementSelectionService.getStyles('1798542179')"(click)='__elementSelectionService.clear()'>
+  <div class="card-body" style="padding: 8px; margin-top: 8px;" (contextmenu)="__elementSelectionService.select('1423584425',$event)" [ngStyle]="__elementSelectionService.getStyles('1423584425')">
+    <div (contextmenu)="__elementSelectionService.select('587531738',$event)" [ngStyle]="__elementSelectionService.getStyles('587531738')">
+      
+      <input type="text" [(ngModel)]="note.title" (change)="updateNote()" class="input-label-lg" maxlength="18" style="width: 80%" (contextmenu)="__elementSelectionService.select('1715281291',$event)" [ngStyle]="__elementSelectionService.getStyles('1715281291')">
+      <a (click)="deleteNote()" class="pull-right text-danger" (contextmenu)="__elementSelectionService.select('1609640693',$event)" [ngStyle]="__elementSelectionService.getStyles('1609640693')">
+        <i class="fa fa-trash-o" (contextmenu)="__elementSelectionService.select('1523317446',$event)" [ngStyle]="__elementSelectionService.getStyles('1523317446')"></i>
+      </a>
+    </div>
+    
+    <textarea class="input-label" style="width: 100%" rows="6" [(ngModel)]="note.text" (change)="updateNote()" (contextmenu)="__elementSelectionService.select('1374363536',$event)" [ngStyle]="__elementSelectionService.getStyles('1374363536')"></textarea>
+    <strong class="text-info" style="font-size: small" (contextmenu)="__elementSelectionService.select('1597280611',$event)" [ngStyle]="__elementSelectionService.getStyles('1597280611')">{{note.lastModifiedOn | date:'dd-MM-yyy HH:mm'}}</strong>
+  </div>
+</div>

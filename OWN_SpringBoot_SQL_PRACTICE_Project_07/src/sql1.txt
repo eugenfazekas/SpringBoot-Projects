@@ -1,0 +1,97 @@
+Select nev,azonosito from termek,szerkezet where szerkezet.kod = 'AA1' and termek.kod = szerkezet.kod;
+
+Select nev, termek.kod,szerkezet.kod,szerkezet.azonosito,neve from termek,szerkezet,anyag where termek.kod = szerkezet.kod and szerkezet.azonosito =anyag.azonosito ;
+
+Select nev, neve from termek,szerkezet,anyag where termek.kod = szerkezet.kod and szerkezet.azonosito =anyag.azonosito ;
+
+Select nev, neve from termek,szerkezet,anyag where termek.kod = szerkezet.kod and szerkezet.azonosito = anyag.azonosito and termek.kod = 'AA1' ;
+
+Select nev, neve from termek,szerkezet,anyag where termek.kod = szerkezet.kod and szerkezet.azonosito = anyag.azonosito and termek.kod = 'AA1' ;
+
+select nev from termek where kod in (select kod from szerkezet where azonosito = 113);
+
+SELECT nev, azonosito FROM termek , szerkezet WHERE  termek.kod = szerkezet.kod AND termek.kod IN (SELECT kod FROM szerkezet WHERE azonosito = 113);
+
+select kod from termek where kod not in (select kod from rendeles) ;
+
+select kod, SUM(darab) from rendeles where kod IN (Select kod from termek) group by kod;
+
+select termek.kod, nev,  SUM(darab) from termek, rendeles where termek.kod = rendeles.kod group by termek.kod,nev;
+
+SELECT rend_szam from rendeles where kod = 'BC1' AND rend_szam IN (SELECT rend_szam FROM rendeles WHERE kod = 'BX9') ;
+
+SELECT rend_szam  from rendeles where kod = 'BC1' or kod = 'BX9' group by rend_szam having count(*) = 2;
+
+SELECT DISTINCT rend_szam FROM rendeles WHERE kod IN ('BC1','BX9') AND rend_szam NOT IN (SELECT rend_szam FROM rendeles WHERE kod NOT IN ('BC1','BX9'));
+
+select termek.kod , termek.nev, (Select count(*) from szerkezet where szerkezet.kod = termek.kod) AS db from termek ;
+
+select kod,nev count(*) as db from szerkezet group by kod having count(*) >=3
+
+SELECT kod, db FROM (SELECT kod , COUNT(*) AS db from szerkezet GROUP BY kod) WHERE db = (SELECT MAX(db) FROM (SELECT COUNT(*) AS db FROM szerkezet GROUP BY kod ));
+
+select rendelesfej.rend_szam,  sum(rendeles.darab * termek.ar) AS ertek, max(rendelesfej.rend_datum) as honap from rendelesfej, rendeles, termek where rendelesfej.rend_szam=rendeles.rend_szam and rendeles.kod = termek.kod and rendelesfej.rend_datum between '2017-01-12' and  '2017-12-31' group by rendelesfej.rend_szam;
+
+select rendelesfej.rend_szam,  sum(rendeles.darab * termek.ar) AS ertek, rendelesfej.rend_datum as honap from rendelesfej, rendeles, termek where rendelesfej.rend_szam=rendeles.rend_szam and rendeles.kod = termek.kod group by rendelesfej.rend_szam;
+
+SELECT rend_szam , ertek ,honap FROM rend_honap WHERE ertek = (SELECT MAX(ertek) FROM rend_honap) ORDER BY rend_szam;
+
+Select  kod, COUNT(*) from szerkezet group by kod
+
+Select  nev, COUNT(*) from termek,szerkezet where termek.kod = szerkezet.kod group by nev
+
+Select  termek.kod , max(nev), COUNT(*)  from termek, szerkezet where termek.kod = szerkezet.kod group by termek.kod
+
+Select kod as nincs_szerkezete   from termek where kod Not in (select kod from szerkezet)
+
+select partner_kod,kod, sum(darab) from rendelesfej,rendeles where rendelesfej.rend_szam = rendeles.rend_szam group by partner_kod, kod;
+
+select partner_kod, kod, SUM(darab),rend_datum from rendelesfej, rendeles where rendelesfej.rend_szam = rendeles.rend_szam and rend_datum between '2017-01-01' and '2017-12-31' and partner_kod like '%1%' group by partner_kod,kod
+
+Select partner_kod ,kod , SUM(darab) from rendelesfej, rendeles where rendelesfej.rend_szam= rendeles.rend_szam and rend_datum between '2018-01-30' and '2018-02-01' and kod like 'A%' group by partner_kod,kod having sum(darab) > 0
+
+SELECT anyag.azonosito, MAX(anyag.neve) AS Anyagnev, SUM(rendeles.darab * szerkezet.mennyiseg) AS Osszes_Anyag , MIN(anyag.mert_egys) AS Mertekegyseg FROM rendeles, szerkezet, anyag WHERE rendeles.kod = szerkezet.kod AND szerkezet.azonosito = anyag.azonosito AND rendeles.datum = '2017-11-10' GROUP BY anyag.azonosito
+
+select distinct termek.kod,nev, 'nem gyarthato le' AS gyarthat from termek,szerkezet,anyag where termek.kod = szerkezet.kod and szerkezet.azonosito = anyag.azonosito and mennyiseg > keszlet
+
+select termek.kod,nev, 'legyarthato' AS gyarthat from termek  where kod NOT IN (select kod from szerkezet, anyag where szerkezet.azonosito = anyag.azonosito and mennyiseg > keszlet)
+
+SELECT termek.kod,nev, 'legyarthato' AS Gyarthat FROM termek WHERE 0 <= ALL (SELECT keszlet - mennyiseg FROM szerkezet,anyag WHERE szerkezet.azonosito = anyag.azonosito AND szerkezet.kod = termek.kod) UNION SELECT termek.kod,nev, 'nem legyarthato le' AS Gyarthat FROM termek WHERE 0 > ANY (SELECT keszlet - mennyiseg FROM szerkezet, anyag WHERE szerkezet.azonosito = anyag.azonosito AND szerkezet.kod = termek.kod) ORDER BY nev;
+
+SELECT kod, db FROM (SELECT kod , COUNT(*) AS db from rendeles GROUP BY kod) WHERE 0 <  (SELECT MAX(db) FROM (SELECT COUNT(*) AS db FROM rendeles GROUP BY kod ))
+
+ 1. SELECT partner_kod from partner WHERE 1 < ALL (SELECT SUM(darab*ar) FROM rendelesfej,rendeles,termek WHERE rendelesfej.partner_kod = partner.partner_kod AND rendelesfej.rend_szam = rendeles.rend_szam AND rendeles.kod = termek.kod GROUP BY rendelesfej.rend_szam)
+
+ 2. SELECT partner_kod from partner WHERE NOT EXISTS (SELECT SUM(darab*ar) FROM rendelesfej,rendeles,termek WHERE rendelesfej.partner_kod = partner.partner_kod AND rendelesfej.rend_szam = rendeles.rend_szam AND rendeles.kod = termek.kod GROUP BY rendelesfej.rend_szam HAVING SUM(darab*ar) <= 1)
+ 
+ 1. SELECT partner_kod from partner WHERE EXISTS (SELECT SUM(darab*ar) FROM rendelesfej,rendeles,termek WHERE rendelesfej.partner_kod = partner.partner_kod AND rendelesfej.rend_szam = rendeles.rend_szam AND rendeles.kod = termek.kod GROUP BY rendelesfej.rend_szam HAVING SUM(darab*ar) <= 10000)
+ 
+ 1. SELECT partner_kod from partner WHERE 10000 >= ALL (SELECT SUM(darab*ar) FROM rendelesfej,rendeles,termek WHERE rendelesfej.partner_kod = partner.partner_kod AND rendelesfej.rend_szam = rendeles.rend_szam AND rendeles.kod = termek.kod GROUP BY rendelesfej.rend_szam)
+ 
+ 1. select kod , SUM(mennyiseg * egys_ar) AS aar from szerkezet,anyag where szerkezet.azonosito = anyag.azonosito group by kod;
+ 
+SELECT rrend_szam , osszar , osszar*szazalek AS enged FROM rendelesek_osszar, kedvezmeny WHERE osszar >= also AND osszar <= felso
+
+SELECT rend_szam, SUM(darab*ar) AS osszar from rendeles,termek where rendeles.kod= termek.kod group by rend_szam
+
+select a1.kod ,a2.kod from (select kod,ar from termek where kod like 'A%') a1 ,(select kod,ar from termek where kod like 'A%') a2 where a2.kod in (Select kod from (select kod,ar from termek where kod like 'A%') where kod > a1.kod)
+
+select year (rend_datum) as ev ,month(rend_datum) as honap, rendelesfej.rend_szam as rendelesszam, SUM (darab*ar) AS rendeltertek from rendelesfej,rendeles,termek where rendelesfej.rend_szam = rendeles.rend_szam AND rendeles.kod= termek.kod group by year(rend_datum), month(rend_datum),rendelesfej.rend_szam
+
+select year(rend_datum) AS Ev, Month(rend_datum) AS Honap, SUM(darab*ar) AS rendelt_ertek FROM rendelesfej, rendeles, termek WHERE rendelesfej.rend_szam = rendeles.rend_szam AND rendeles.kod = termek.kod group by year(rend_datum) , Month(rend_datum)
+
+select year(rend_datum) AS Ev,  SUM(darab*ar) AS rendelt_ertek FROM rendelesfej, rendeles, termek WHERE rendelesfej.rend_szam = rendeles.rend_szam AND rendeles.kod = termek.kod group by year(rend_datum) 
+
+select  SUM(darab*ar) AS rendelt_ertek FROM rendeles, termek WHERE  rendeles.kod = termek.kod 
+
+Select nev, azonosito from termek  join szerkezet on termek.kod = szerkezet.kod
+
+SELECT DISTINCT termek.kod, nev from termek left join rendeles ON termek.kod = rendeles.kod where rendeles.kod is NULL
+
+SELECT rendeles.kod,nev, '' AS megjegyzes, '' AS rendelesszam from rendeles INNER JOIN termek ON rendeles.kod = termek.kod UNION SELECT termek.kod , nev , 'meg nem rendeltek meg', '' from rendeles right join termek ON rendeles.kod = termek.kod where rendeles.kod is null UNION SELECT rendeles.kod, '', 'hibas termekkod', rend_szam from rendeles left join termek on rendeles.kod = termek.kod where termek.kod IS NULL ORDER BY 4,3,1
+
+Select termek.kod , nev ,utolso from termek left join (Select kod , max(rend_datum) AS utolso from rendelesfej Inner join rendeles on rendelesfej.rend_szam = rendeles.rend_szam group by kod) AS rendelesutolso on termek.kod = rendelesutolso.kod order by utolso
+
+select termek.kod, nev from termek left join (select kod, max(rend_datum) AS utolso from rendelesfej Inner join rendeles on rendelesfej.rend_szam =rendeles.rend_szam group by kod ) as rendelesutolso on termek.kod = rendelesutolso.kod
+
+SELECT * FROM Customers LIMIT 10, 10

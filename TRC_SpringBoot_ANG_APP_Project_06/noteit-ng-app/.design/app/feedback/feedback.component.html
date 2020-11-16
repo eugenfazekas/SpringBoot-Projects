@@ -1,0 +1,49 @@
+<div class="container" (contextmenu)="__elementSelectionService.select('761281445',$event)" [ngStyle]="__elementSelectionService.getStyles('761281445')"(click)='__elementSelectionService.clear()'>
+  <div class="row" (contextmenu)="__elementSelectionService.select('1053388678',$event)" [ngStyle]="__elementSelectionService.getStyles('1053388678')">
+    <div class="offset-3" (contextmenu)="__elementSelectionService.select('307807977',$event)" [ngStyle]="__elementSelectionService.getStyles('307807977')"></div>
+    <div class="col-md-6" (contextmenu)="__elementSelectionService.select('904269203',$event)" [ngStyle]="__elementSelectionService.getStyles('904269203')">
+      <form name="form" #f="ngForm" (ngSubmit)="f.form.valid &#38;&#38; sendFeedback()" novalidate class="feedback-form" (contextmenu)="__elementSelectionService.select('698839176',$event)" [ngStyle]="__elementSelectionService.getStyles('698839176')">
+        
+        <div class="form-group" (contextmenu)="__elementSelectionService.select('1550290789',$event)" [ngStyle]="__elementSelectionService.getStyles('1550290789')">
+          <label for="name" (contextmenu)="__elementSelectionService.select('148665742',$event)" [ngStyle]="__elementSelectionService.getStyles('148665742')">First Name</label>
+          <input type="text" id="name" class="form-control" name="name" placeholder="Your name" [(ngModel)]="model.name" #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted &#38;&#38; name.invalid }" required (contextmenu)="__elementSelectionService.select('231959443',$event)" [ngStyle]="__elementSelectionService.getStyles('231959443')">
+          
+          <div *ngIf="f.submitted &#38;&#38; name.invalid" class="invalid-input" (contextmenu)="__elementSelectionService.select('526543249',$event)" [ngStyle]="__elementSelectionService.getStyles('526543249')">
+            
+            <div *ngIf="name.errors?.required" (contextmenu)="__elementSelectionService.select('2141114815',$event)" [ngStyle]="__elementSelectionService.getStyles('2141114815')">Field is required</div>
+          </div>
+        </div>
+        
+        <div class="form-group" (contextmenu)="__elementSelectionService.select('335920071',$event)" [ngStyle]="__elementSelectionService.getStyles('335920071')">
+          <label for="email" (contextmenu)="__elementSelectionService.select('43828519',$event)" [ngStyle]="__elementSelectionService.getStyles('43828519')">Email</label>
+          <input type="text" id="email" class="form-control" name="email" placeholder="Your email" [(ngModel)]="model.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted &#38;&#38; email.invalid }" required email (contextmenu)="__elementSelectionService.select('247335428',$event)" [ngStyle]="__elementSelectionService.getStyles('247335428')">
+          
+          <div *ngIf="f.submitted &#38;&#38; email.invalid" class="invalid-input" (contextmenu)="__elementSelectionService.select('128201029',$event)" [ngStyle]="__elementSelectionService.getStyles('128201029')">
+            
+            <div *ngIf="email.errors?.required" (contextmenu)="__elementSelectionService.select('1044802037',$event)" [ngStyle]="__elementSelectionService.getStyles('1044802037')">Field is required</div>
+            <div *ngIf="email.errors?.email" (contextmenu)="__elementSelectionService.select('1511466727',$event)" [ngStyle]="__elementSelectionService.getStyles('1511466727')">Field is not a valid email</div>
+          </div>
+        </div>
+
+        
+        <div class="form-group" (contextmenu)="__elementSelectionService.select('604502411',$event)" [ngStyle]="__elementSelectionService.getStyles('604502411')">
+          <label for="feedback" (contextmenu)="__elementSelectionService.select('34589271',$event)" [ngStyle]="__elementSelectionService.getStyles('34589271')">Feedback</label>
+          <textarea id="feedback" class="form-control" name="feedback" placeholder="Your feedback" rows="10" [(ngModel)]="model.feedback" #feedback="ngModel" [ngClass]="{ 'is-invalid': f.submitted &#38;&#38; feedback.invalid }" required minlength="10" (contextmenu)="__elementSelectionService.select('252379682',$event)" [ngStyle]="__elementSelectionService.getStyles('252379682')">
+			    </textarea>
+          
+          <div *ngIf="f.submitted &#38;&#38; feedback.invalid" class="invalid-input" (contextmenu)="__elementSelectionService.select('1816673594',$event)" [ngStyle]="__elementSelectionService.getStyles('1816673594')">
+            
+            <div *ngIf="feedback.errors?.required" (contextmenu)="__elementSelectionService.select('2006473369',$event)" [ngStyle]="__elementSelectionService.getStyles('2006473369')">Field is required</div>
+            <div *ngIf="feedback.errors?.minlength" (contextmenu)="__elementSelectionService.select('196705103',$event)" [ngStyle]="__elementSelectionService.getStyles('196705103')">Field is too small (try 10 characters)</div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-info pull-right" (contextmenu)="__elementSelectionService.select('1559523848',$event)" [ngStyle]="__elementSelectionService.getStyles('1559523848')">
+          <i class="fa fa-envelope-o" (contextmenu)="__elementSelectionService.select('1903703361',$event)" [ngStyle]="__elementSelectionService.getStyles('1903703361')"></i>
+          <span (contextmenu)="__elementSelectionService.select('1149363557',$event)" [ngStyle]="__elementSelectionService.getStyles('1149363557')"> Send Feedback</span>
+        </button>
+      </form>
+    </div>
+    <div class="offset-3" (contextmenu)="__elementSelectionService.select('69377465',$event)" [ngStyle]="__elementSelectionService.getStyles('69377465')"></div>
+  </div>
+</div>

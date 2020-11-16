@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Note} from '../model/note';
+import {Note} from "../model/note";
 
 @Component({
   selector: 'app-note',
@@ -8,14 +8,16 @@ import {Note} from '../model/note';
 })
 export class NoteComponent implements OnInit {
 
-@Input() note: Note;
-@Output() noteUpdated: EventEmitter<Note> = new EventEmitter<Note>();
-@Output() noteDeleted: EventEmitter<Note> = new EventEmitter<Note>();
+  @Input() note: Note;
+  @Output() noteUpdated: EventEmitter<Note> = new EventEmitter<Note>();
+  @Output() noteDeleted: EventEmitter<Note> = new EventEmitter<Note>();
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
   }
+
+  ngOnInit() {
+  }
+
   updateNote() {
     this.noteUpdated.emit(this.note);
   }
